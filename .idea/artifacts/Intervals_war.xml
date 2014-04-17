@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="Intervals:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="Intervals.war">
+      <element id="artifact" artifact-name="Intervals:war exploded" />
+    </root>
+  </artifact>
+</component>

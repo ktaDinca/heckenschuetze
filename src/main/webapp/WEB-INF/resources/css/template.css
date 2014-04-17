@@ -1,0 +1,29 @@
+
+#header {
+    height: 50px;
+    /*background: #747577;*/
+    /*background: #e7e3e2;*/
+}
+
+
+#content {
+    /*background: mediumvioletred;*/
+
+}
+
+#footer {
+    height: 50px;
+    /*background: #6db4d0;*/
+}
+
+
+@font-face {
+    font-family: lane_narrow;
+    src: url(../fonts/lane_narrow.ttf);
+}
+
+* {
+    -webkit-font-smoothing: antialiased;
+    font-family: lane_narrow;
+    font-weight: inherit;
+}

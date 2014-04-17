@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+    <definition name=".mainTemplate" template="/WEB-INF/views/template/template.jsp">
+        <put-attribute name="sidebar" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+        <put-attribute name="styles" value="" />
+        <put-attribute name="scripts" value="" />
+     </definition>
+
+    <definition name=".blankTemplate" template="/WEB-INF/views/template/blank.jsp">
+        <put-attribute name="base-styles" value="resources/css/base-styles.css" />
+        <put-attribute name="styles" value="" type="string" />
+        <put-attribute name="scripts" value="" />
+    </definition>
+
+    <definition name="login-tile" extends=".blankTemplate">
+        <put-attribute name="title" value="welcome" />
+        <put-attribute name="content" value="/WEB-INF/views/login/login.jsp" />
+        <put-attribute name="styles" value="resources/css/login.css" type="string" />
+        <put-attribute name="scripts" value="/WEB-INF/views/login/_scripts.jsp" />
+    </definition>
+
+    <definition name="homepage-tile" extends=".mainTemplate">
+        <put-attribute name="title" value="Homepage" />
+        <put-attribute name="content" value="/WEB-INF/views/homepage/homepage.jsp" />
+        <put-attribute name="styles" value="resources/css/homepage.css" type="string" />
+        <put-attribute name="scripts" value="/WEB-INF/views/homepage/_scripts.jsp" />
+    </definition>
+
+    <definition name="homepage-admin-tile" extends=".mainTemplate">
+        <put-attribute name="title" value="Homepage" />
+        <put-attribute name="content" value="/WEB-INF/views/homepage/homepage-admin.jsp" />
+        <put-attribute name="styles" value="resources/css/homepage-admin.css" type="string" />
+        <!--<put-attribute name="scripts" value="/WEB-INF/views/homepage/_scripts.jsp" />-->
+    </definition>
+
+    <definition name="departments-tile" extends=".blankTemplate">
+        <put-attribute name="content" value="/WEB-INF/views/admin/tab-emploees-content.jsp" />
+    </definition>
+</tiles-definitions>

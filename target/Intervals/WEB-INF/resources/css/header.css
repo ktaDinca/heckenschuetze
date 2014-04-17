@@ -1,0 +1,33 @@
+
+#logout-btn {
+    background-color: #F76700;
+    color: #ffffff;
+    background-image: linear-gradient(#F76700,#FA3219);
+    border-color: #C53421;
+}
+
+a {
+    color: #1488f4;
+    font-size: 30px;
+}
+
+#color-container {
+    height: 3px;
+    background-image: -webkit-linear-gradient(left, #1488f4, #1488f4 25%, #ff332f 25%, #ff332f 50%, #fffc00 50%, #fffc00 75%, #02ed12 75%, #02ed12);
+    /*background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);*/
+    /*background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);*/
+    /*background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);*/
+}
+
+#links {
+    float: left;
+}
+
+#logout-btn {
+    float: right;
+}
+
+.blue-underneath {
+    height: 3px;
+    background: #1488f4;
+}

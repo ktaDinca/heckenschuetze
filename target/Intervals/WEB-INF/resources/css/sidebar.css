@@ -1,0 +1,27 @@
+
+.logo-container {
+    margin: 50px auto;
+}
+
+.top-bordered {
+    border-top: 1px dashed #cccccc;
+}
+
+.bottom-bordered {
+    border-bottom: 1px dashed #cccccc;
+}
+
+ul {
+    padding: 0px;
+}
+li {
+    display: block;
+    padding: 10px 15px;
+    list-style: none;
+    position: relative;
+}
+
+li > a {
+    display: block;
+    position: relative;
+}

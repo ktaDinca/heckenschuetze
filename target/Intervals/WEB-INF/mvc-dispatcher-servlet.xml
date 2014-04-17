@@ -1,0 +1,60 @@
+
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:context="http://www.springframework.org/schema/context"
+           xmlns:tx="http://www.springframework.org/schema/tx"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:mvc="http://www.springframework.org/schema/mvc"
+           xsi:schemaLocation="
+            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.2.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+            ">
+
+        <!--ANNOTATION DRIVEN-->
+        <context:component-scan base-package="com.intervals"/>
+
+        <!--will activate various annotations like @Required and @Autowired-->
+        <mvc:annotation-driven />
+
+        <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
+
+        <!--HIBERNATE-->
+        <tx:annotation-driven transaction-manager="transactionManager"/>
+        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+            <property name="persistenceUnitName" value="defaultPersistenceUnit"/>
+        </bean>
+
+        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+            <property name="entityManagerFactory" ref="entityManagerFactory"/>
+        </bean>
+
+        <!--Note: this bean is used by default by Spring MVC and what it basically does is :-->
+        <!--when you return, for example, a ModelAndView("homepage") it adds ".jsp" to it and -->
+        <!--tries to find it in /WEB-INF/views/-->
+        <!--<bean-->
+                <!--class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+            <!--<property name="prefix" value="/WEB-INF/views/" />-->
+            <!--<property name="suffix" value=".jsp" />-->
+        <!--</bean>-->
+
+        <!-- Tiles configuration -->
+        <bean id="tilesConfigurer"
+              class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+            <property name="definitions">
+                <list>
+                    <value>/WEB-INF/templates.xml</value>
+                </list>
+            </property>
+        </bean>
+
+        <!--Note: what TilesViewResolver does when you return a ModelAndView("homepage") is to
+        look for it in templates.xml, builds all the tiles (footer, header, menu, content..) and return the correct one-->
+        <bean id="viewResolver"
+              class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+            <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+        </bean>
+    </beans>

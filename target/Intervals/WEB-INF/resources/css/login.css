@@ -1,0 +1,61 @@
+#login-dialog {
+    width: 400px
+}
+
+#login-dialog input {
+    background: #171717;
+    border: 0px;
+    height: 40px;
+    font-size: 21px;
+}
+
+#login-dialog .modal-header h2 {
+    text-align: center;
+}
+
+#login-dialog .modal-header p {
+    text-align: center;
+    color: #989898;
+    font-size: 21px;
+}
+
+#login-dialog .modal-body {
+    background: #2e2e2e;
+    padding: 20px;
+}
+
+#password {
+    margin-top : 5px;
+}
+
+#login-form {
+    margin-bottom: 0px;
+}
+
+#login-form input[type="submit"]  {
+    height: 60px;
+    width: 100%;
+    font-size: 30px;
+    background: #6db4d0;
+
+    color: white;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 0 0 6px 6px;
+}
+
+@font-face {
+    font-family: lane_narrow;
+    src: url(../fonts/lane_narrow.ttf);
+}
+
+* {
+    -webkit-font-smoothing: antialiased;
+    font-family: lane_narrow;
+    font-weight: inherit;
+}
+
+.carousel-caption h1 {
+    font-size: 71px;
+}
