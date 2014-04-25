@@ -18,8 +18,28 @@
     function getRandColor(brightness){
         var rgb = [Math.random() * 256, Math.random() * 256, Math.random() * 256];
         var mix = [brightness*51, brightness*51, brightness*51];
-        var mixedrgb = [rgb[0] + mix[0], rgb[1] + mix[1], rgb[2] + mix[2]]; //.map(function(x){ return (x/2.0).round()});
+        var mixedrgb = [Math.floor((rgb[0] + mix[0]) / 2.0), Math.floor((rgb[1] + mix[1]) / 2.0), Math.floor((rgb[2] + mix[2]) / 2.0)]; //.map(function(x){ return (x/2.0).round()});
         return "rgb(" + mixedrgb.join(",") + ")";
+    }
+
+    function generateRandomColor() {
+        var colors = [];
+        colors.push("rgb(26, 188, 156)");
+        colors.push("rgb(46, 204, 113)");
+        colors.push("rgb(52, 152, 219)");
+        colors.push("rgb(155, 89, 182)");
+        colors.push("rgb(52, 73, 94)");
+        colors.push("rgb(41, 128, 185)");
+        colors.push("rgb(39, 174, 96)");
+        colors.push("rgb(241, 196, 15)");
+        colors.push("rgb(243, 156, 18)");
+        colors.push("rgb(211, 84, 0)");
+        colors.push("rgb(231, 76, 60)");
+        colors.push("rgb(192, 57, 43)");
+        colors.push("rgb(44, 62, 80)");
+        colors.push("rgb(142, 68, 173)");
+
+        return colors[Math.floor(Math.random() * colors.length) + 1];
     }
 
     function clearAddActivityModal() {
@@ -146,7 +166,8 @@
                         var events = [];
 
                         for (var i = 0; i < data.events.length; i ++) {
-                            var randomColor = getRandColor(3);
+                            var randomColor = generateRandomColor();
+                            console.log(randomColor);
 
                             events.push({
                                 id: data.events[i].id,
@@ -157,8 +178,6 @@
                                 allDay: false,
                                 color: randomColor
                             });
-
-                            randomColor = null;
                         }
                         callback(events);
                     }
