@@ -44,4 +44,9 @@ public class DivisionServiceImpl implements DivisionService {
     public Division findDivisionById(Long id) {
         return divisionDao.findById(id);
     }
+
+    @Override
+    public void remove(Long divid) {
+        divisionDao.remove(divid);
+    }
 }

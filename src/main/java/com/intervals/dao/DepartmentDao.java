@@ -57,4 +57,10 @@ public class DepartmentDao extends BaseDao {
         }
         return null;
     }
+
+    public void remove(Long deptid) {
+        Query q = entityManager.createQuery("Delete from Department where id = :id");
+        q.setParameter("id", deptid);
+        q.executeUpdate();
+    }
 }

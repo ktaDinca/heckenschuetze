@@ -2,10 +2,10 @@
   <artifact type="exploded-war" build-on-make="true" name="Intervals:war exploded">
     <output-path>$PROJECT_DIR$/target/Intervals</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="Intervals/web/Web" />
+      <element id="javaee-facet-resources" facet="Diplomarbeit/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="Intervals" />
+          <element id="module-output" name="Diplomarbeit" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework:spring-core:3.2.0.RELEASE" />

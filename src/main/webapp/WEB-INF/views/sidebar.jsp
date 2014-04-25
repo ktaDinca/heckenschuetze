@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/taglibs.jsp" %>
 
-<link rel="stylesheet" href="resources/css/sidebar.css" />
+<link rel="stylesheet" href="<spring:url value="/resources/css/sidebar.css" />" />
 
 <script type="text/javascript" src="<spring:url value="/resources/javascript/jquery.js" />" ></script>
 <script type="text/javascript" src="<spring:url value="/resources/javascript/bootstrap.js" />" ></script>
@@ -13,13 +13,12 @@
 
 <ul class="">
     <li class="top-bordered">
-        <%--<span id="today-span"></span>--%>
-        <a href="/timesheet/today">today's</a>
+        <a href="<spring:url value="/intervals/today" />">today's</a>
     </li>
-    <li class="top-bordered">
-        <a href="#">tomorrow's</a>
-    </li>
-    <li class="top-bordered bottom-bordered">
-        <a href="/timesheet/today">toyota's</a>
-    </li>
+
+    <c:if test="${loggedInUser.job eq 'ADMIN'}">
+        <li class="top-bordered">
+            <a href="<spring:url value="/intervals/admin/panel" />">Admin Panel</a>
+        </li>
+    </c:if>
 </ul>

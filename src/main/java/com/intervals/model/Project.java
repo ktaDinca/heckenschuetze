@@ -2,8 +2,8 @@ package com.intervals.model;
 
 import javax.persistence.*;
 
-//@Entity
-//@Table(name = "ts_project")
+@Entity
+@Table(name = "ts_project")
 public class Project extends AbstractEntity {
 
     @Column(name = "name")

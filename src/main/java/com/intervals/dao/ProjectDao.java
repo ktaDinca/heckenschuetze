@@ -14,7 +14,7 @@ import java.util.List;
 public class ProjectDao extends BaseDao {
 
 	public List<Project> loadAll() {
-		return this.entityManager.createQuery("Select p from Project p").getResultList();
+		return this.entityManager.createQuery("Select p from Project p order by p.name").getResultList();
 	}
 
 	public List<Project> findProjectsForEmployee(Employee e) {
@@ -51,4 +51,23 @@ public class ProjectDao extends BaseDao {
 		List<Project> results = (List<Project>) q.getResultList();
 		return results;
 	}
+
+    public Project loadById(Long projectId) {
+        Query q = entityManager.createQuery("Select p from Project p where p.id = :id");
+        q.setParameter("id", projectId);
+
+        List<Project> results = q.getResultList();
+        if (results != null && results.size() > 0) {
+            return results.get(0);
+        }
+        return null;
+    }
+
+
+    public void remove(Long projectId) {
+        Query q = entityManager.createQuery("Delete from Project where id = :id");
+        q.setParameter("id", projectId);
+
+        q.executeUpdate();
+    }
 }

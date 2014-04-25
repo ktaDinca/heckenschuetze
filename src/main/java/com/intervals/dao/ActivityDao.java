@@ -2,6 +2,7 @@ package com.intervals.dao;
 
 import com.intervals.model.Activity;
 import com.intervals.model.DailyTimeSheet;
+import com.intervals.model.Employee;
 import com.intervals.model.Project;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,4 +71,25 @@ public class ActivityDao extends BaseDao {
         return null;
     }
 
+    public Activity findById(Long activityId) {
+        Query q = entityManager.createQuery("Select a from Activity a where a.id = :id").setParameter("id", activityId);
+        List<Activity> results = q.getResultList();
+
+        if (results != null && results.size() > 0) {
+            return results.get(0);
+        }
+        return null;
+    }
+
+    public List<Activity> findAllByUser(Employee emp) {
+        Query q = entityManager.createQuery("Select a from Activity a where a.owner.id = :id order by a.start");
+        q.setParameter("id", emp.getId());
+
+        return q.getResultList();
+    }
+
+    public void removeById(Long actId) {
+        Query q = entityManager.createQuery("Delete from Activity a where id = :id").setParameter("id", actId);
+        q.executeUpdate();
+    }
 }

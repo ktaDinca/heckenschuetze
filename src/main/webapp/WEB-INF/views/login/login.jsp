@@ -45,7 +45,7 @@
             <div class="modal-header">
                 <p>You are one click away from ending a great working day</p>
             </div>
-                <form id="login-form" method="post" action="<spring:url value="/login" />">
+                <form id="login-form" method="post" action="<spring:url value="/intervals/login" />">
                     <div class="modal-body">
                     <input type="text" name="username" id="username" class="form-control input-lg"
                            placeholder="username">

@@ -41,4 +41,11 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
         return null;
     }
+
+    @Override
+    public void remove(Long deptid) {
+        if (deptid != null) {
+            departmentDao.remove(deptid);
+        }
+    }
 }

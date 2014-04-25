@@ -1,12 +1,7 @@
 package com.intervals.controller;
 
-import com.intervals.model.Department;
-import com.intervals.model.Division;
-import com.intervals.model.Employee;
-import com.intervals.model.JobType;
-import com.intervals.service.DepartmentService;
-import com.intervals.service.DivisionService;
-import com.intervals.service.EmployeeService;
+import com.intervals.model.*;
+import com.intervals.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +32,19 @@ public class AdminController {
     @Autowired
     private DivisionService divisionService;
 
-    @RequestMapping (value= "/admin/employees", method = RequestMethod.GET)
+    @Autowired
+    private ClientService clientService;
+
+    @Autowired
+    private ProjectService projectService;
+
+    @RequestMapping(value = "/intervals/admin/panel")
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
+
+        return new ModelAndView("admin-panel-tile");
+    }
+
+    @RequestMapping(value = "/intervals/admin/employees", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getEmployees(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -48,7 +55,7 @@ public class AdminController {
         return map;
     }
 
-    @RequestMapping(value = "/admin/employees/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/intervals/admin/employees/edit", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object > edit(HttpServletRequest request, HttpServletResponse response) {
 
@@ -116,7 +123,7 @@ public class AdminController {
         return map;
     }
 
-    @RequestMapping(value = "/admin/employees/dept-managers", method = RequestMethod.GET)
+    @RequestMapping(value = "/intervals/admin/employees/dept-managers", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getDeptManagers(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -127,7 +134,17 @@ public class AdminController {
         return map;
     }
 
-    @RequestMapping(value = "/admin/employees/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/intervals/admin/employees/division-managers", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getDivisionManagers(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        List<Employee> divisionManagers = employeeService.loadAllEmployeesByJob(JobType.DIVISION_MANAGER);
+        map.put("divisionManagers", divisionManagers);
+        return map;
+    }
+
+    @RequestMapping(value = "/intervals/admin/employees/remove", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> removeEmployee(HttpServletRequest request, HttpServletResponse response) {
 
@@ -147,7 +164,7 @@ public class AdminController {
     }
 
 
-    @RequestMapping(value="/admin/departments", method = RequestMethod.GET)
+    @RequestMapping(value="/intervals/admin/departments", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getDepartments(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -158,7 +175,7 @@ public class AdminController {
         return map;
     }
 
-    @RequestMapping(value = "/admin/departments/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/intervals/admin/departments/edit", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> editDepartment(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -207,7 +224,25 @@ public class AdminController {
         return map;
     }
 
-    @RequestMapping(value = "/admin/divisions", method = RequestMethod.GET)
+    @RequestMapping(value = "/intervals/admin/departments/remove", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> removeDepartment(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        String id = request.getParameter("id");
+        Long deptid = null;
+        if (id != null && id.length() > 0 && !"undefined".equals(id)) {
+            deptid = Long.parseLong(id);
+
+            departmentService.remove(deptid);
+            map.put("message", "success");
+            return map;
+        }
+        map.put("message", "fail");
+        return map;
+    }
+
+    @RequestMapping(value = "/intervals/admin/divisions", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getDivisions(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -218,17 +253,7 @@ public class AdminController {
         return map;
     }
 
-    @RequestMapping(value = "/admin/divisions/division-managers", method = RequestMethod.GET)
-    @ResponseBody
-    public Map<String, Object> getDivisionManagers(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, Object> map = new HashMap<String, Object>();
-
-        List<Employee> divisionManagers = employeeService.loadAllEmployeesByJob(JobType.DIVISION_MANAGER);
-        map.put("divisionManagers", divisionManagers);
-        return map;
-    }
-
-    @RequestMapping(value = "/admin/divisions/edit")
+    @RequestMapping(value = "/intervals/admin/divisions/edit")
     @ResponseBody
     public Map<String, Object> editDivision(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -268,5 +293,150 @@ public class AdminController {
         return map;
     }
 
+    @RequestMapping(value = "/intervals/admin/divisions/remove", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> removeDivision(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        String id = request.getParameter("id");
+        if (id == null || id.length() < 1 || "undefined".equals(id)) {
+            map.put("message", "fail");
+            return map;
+        }
+
+        Long divid = Long.parseLong(id);
+        divisionService.remove(divid);
+
+        map.put("message", "success");
+        return map;
+    }
+
+    @RequestMapping(value= "/intervals/admin/clients", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> loadClients(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        List<Client> clients = clientService.loadAll();
+
+        map.put("message", "success");
+        map.put("clients", clients);
+        return map;
+    }
+
+    @RequestMapping(value= "/intervals/admin/clients/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> editClient (HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        String id = request.getParameter("id");
+        Long clientId = null;
+        if (id != null && id.length() > 0 && !"undefined".equals(id)) {
+            clientId = Long.parseLong(id);
+        }
+
+        Client client = null;
+        if (clientId != null) {
+            client = clientService.findById(clientId);
+        } else {
+            client = new Client();
+        }
+
+        if (client != null) {
+            String name = request.getParameter("name");
+            if (name != null && name.length() > 0 && !"undefined".equals(name)) {
+                client.setName(name);
+            }
+            clientService.save(client);
+        }
+        map.put("message", "success");
+        return map;
+    }
+
+    @RequestMapping(value= "/intervals/admin/clients/remove", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> removeClient (HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        String id = request.getParameter("id");
+        Long clientId = null;
+        if (id != null && id.length() > 0 && !"undefined".equals(id)) {
+            clientId = Long.parseLong(id);
+
+            clientService.remove(clientId);
+        }
+        map.put("message", "success");
+        return map;
+    }
+
+    @RequestMapping (value = "/intervals/admin/projects", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> loadProjects(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        List<Project> projects = projectService.loadAll();
+
+        map.put("message", "success");
+        map.put("projects", projects);
+
+        return map;
+    }
+
+    @RequestMapping(value = "/intervals/admin/projects/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> saveProject(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        String id = request.getParameter("id");
+        Long projectId = null;
+        if (id != null && id.length() > 0 && !"undefined".equals(id)) {
+            projectId = Long.parseLong(id);
+        }
+
+        Project project = null;
+        if (projectId != null) {
+            project = projectService.findById(projectId);
+        }
+        else {
+            project = new Project();
+        }
+
+        if (project != null) {
+
+            String name = request.getParameter("name");
+            if (name != null) {
+                project.setName(name);
+            }
+
+            String clientId = request.getParameter("clientId");
+            if (clientId != null && clientId.length() > 0 && !"undefined".equals(clientId) && !"none".equals(clientId)) {
+                Client client = clientService.findById(Long.parseLong(clientId));
+                project.setClient(client);
+            }
+
+            projectService.save(project);
+        }
+
+        map.put("message", "success");
+        return map;
+    }
+
+    @RequestMapping(value = "/intervals/admin/projects/remove", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> removeProject(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        String id = request.getParameter("id");
+        Long projectId = null;
+        if (id != null && id.length() > 0 && !"undefined".equals(id)) {
+            projectId = Long.parseLong(id);
+
+            projectService.remove(projectId);
+
+            map.put("message", "success");
+            return map;
+        }
+        map.put("message", "failure");
+        return map;
+    }
 
 }

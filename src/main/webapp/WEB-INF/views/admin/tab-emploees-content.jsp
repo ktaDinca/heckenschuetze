@@ -19,7 +19,7 @@
 
         $.ajax({
             type : "post",
-            url : "<spring:url value="/admin/employees/edit" />",
+            url : "<spring:url value="/intervals/admin/employees/edit" />",
             data: {
                 id : empno,
                 username : username,
@@ -52,7 +52,7 @@
 
         $.ajax({
             type: "post",
-            url: "<spring:url value="/admin/employees/delete" />",
+            url: "<spring:url value="/intervals/admin/employees/remove" />",
             data: {
                 id : empid
             },
@@ -106,7 +106,7 @@
         $.ajax({
             type: "get",
             contentType: "application/json",
-            url: "<spring:url value="/admin/employees" />",
+            url: "<spring:url value="/intervals/admin/employees" />",
             success: function(data) {
                 var table = $("#employees-table");
 

@@ -9,8 +9,8 @@ import javax.persistence.Table;
  * @author Catalin Dinca (alexandru.dinca2110@gmail.com)
  * @since March 3, 2014
  */
-//@Entity
-//@Table(name = "client")
+@Entity
+@Table(name = "ts_client")
 public class Client extends AbstractEntity {
 
     @Column(name = "name")

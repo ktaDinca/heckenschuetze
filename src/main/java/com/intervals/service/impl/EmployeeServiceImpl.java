@@ -59,7 +59,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> loadAllEmployeesByJob(JobType job) {
-        return employeeDao.loadAllEmployeesByJob(job);
+        return employeeDao.findAllEmployeesByJob(job);
     }
 
     @Override

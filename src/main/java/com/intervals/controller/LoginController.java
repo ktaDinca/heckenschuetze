@@ -21,28 +21,23 @@ public class LoginController {
     @Autowired
     private EmployeeService employeeService;
 
-    @RequestMapping("/")
+    @RequestMapping("/intervals")
     public ModelAndView index() {
         return new ModelAndView("login-tile");
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/intervals/login", method = RequestMethod.POST)
     public ModelAndView login(@RequestParam String username, @RequestParam String password, HttpServletRequest request, HttpServletResponse response) {
 
         ModelAndView mv = new ModelAndView();
         Employee emp = employeeService.findEmployeeByUsername(username);
 
         if (emp == null) {
-            mv.setViewName("redirect:/");
+            mv.setViewName("redirect:/intervals");
             return mv;
         }
         else {
-            if (emp.getJob().equals(JobType.ADMIN)) {
-                mv.setViewName("redirect:/homepage");
-            }
-            else {
-                mv.setViewName("redirect:/homepage-admin");
-            }
+            mv.setViewName("redirect:/intervals/today");
             saveUserOnSession(request, emp);
          }
         return mv;
@@ -55,8 +50,4 @@ public class LoginController {
         }
     }
 
-    @RequestMapping(value = "/hello")
-    public String redirectToHomepage(HttpServletRequest request, HttpServletResponse response) {
-        return "redirect:/homepage";
-    }
 }

@@ -12,7 +12,7 @@
 
         $.ajax({
             type: "post",
-            url: "<spring:url value="/admin/departments/edit" />",
+            url: "<spring:url value="/intervals/admin/departments/edit" />",
             data: {
                 id: deptno,
                 name: name,
@@ -43,7 +43,7 @@
     function loadAllDepartmentManagers() {
         $.ajax({
             type : "get",
-            url : "<spring:url value="/admin/employees/dept-managers" />",
+            url : "<spring:url value="/intervals/admin/employees/dept-managers" />",
             success: function (data) {
                 var deptManagerSelect = $('#editDeptModal .modal-body #managers');
                 deptManagerSelect.empty();
@@ -59,7 +59,7 @@
     function loadAllDivisions() {
         $.ajax({
             type: "get",
-            url : "<spring:url value="/admin/divisions" />",
+            url : "<spring:url value="/intervals/admin/divisions" />",
             success : function(data) {
                 var divisionsSelect = $('#editDeptModal .modal-body #divisions');
                 divisionsSelect.empty();
@@ -77,11 +77,18 @@
         loadAllDepartments();
     }
 
+    function createRemoveDeptFunction(deptid) {
+        return function() {
+            $('#removeDeptModal .modal-body p').text('Are you sure you want to remove this entry?');
+            $('#removeDeptModal .modal-body #deptid').val(deptid);
+        };
+    }
+
     function loadAllDepartments() {
 
         $.ajax({
             type : "get",
-            url : "<spring:url value="admin/departments" />",
+            url : "<spring:url value="/intervals/admin/departments" />",
             success : function(data) {
                 console.log(data);
 
@@ -114,18 +121,25 @@
                             line += '<td>' + crtDept.manager.firstname + ' ' + crtDept.manager.lastname  + '</td>';
                         }
 
-                        line += '<td>' + '<a id="edit_dep_' + i + '"' + 'data-toggle="modal" href="#editDeptModal">' + 'edit' + '</a>' +
-                                '<td>' + '<a id="remove_dep_' + i + '"' + ">" + 'delete' + '</a>' +
+                        line += '<td>' + '<a id="edit_dep_' + i + '"' + 'data-toggle="modal" href="#editDeptModal">' + 'edit' + '</a>' + '</td>' +
+                                '<td>' + '<a id="remove_dep_' + i + '"' + 'data-toggle="modal" href="#removeDeptModal" >' + 'delete' + '</a>' + '</td>' +
                                 '</tr>';
+                        table.append(line);
 
                         var editLink = $('#edit_dep_' + i);
                         editLink.click(createPopulateEditDeptModalFunction(crtDept));
+
+                        var deleteLink = $('#remove_dep_' + i);
+
+                        deleteLink.click(createRemoveDeptFunction(crtDept.id));
+                        deleteLink.css("color", "red");
                     }
-                    table.append(line);
+
                 }
             }
         });
     }
+
 
     $(document).ready(function() {
         refreshDepartmentsTable();
@@ -143,6 +157,21 @@
         $('#editDeptModal .modal-body #dname').val('');
 
     }
+
+    function removeDepartment() {
+        var deptid = $('#removeDeptModal .modal-body #deptid').val();
+        $.ajax({
+            type: "post",
+            url: "<spring:url value="/intervals/admin/departments/remove" />",
+            data: {
+                id : deptid
+            },
+            success: function() {
+                $('#removeDeptModal').modal('hide');
+            }
+        });
+    }
+
 </script>
 
 
@@ -192,5 +221,18 @@
     </div>
 </div>
 
-
+<div class="modal fade in" id="removeDeptModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p></p>
+                <input type="hidden" name="deptid" id="deptid">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" id="deleteEmployee" onclick="removeDepartment()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
 

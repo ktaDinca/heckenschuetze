@@ -17,4 +17,6 @@ public interface DepartmentService {
     public List<Department> loadAll();
 
     Department findDepartmentById(Long dept_id);
+
+    void remove(Long deptid);
 }

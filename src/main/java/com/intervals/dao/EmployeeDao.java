@@ -75,7 +75,7 @@ public class EmployeeDao extends BaseDao {
         return null;
     }
 
-    public List<Employee> loadAllEmployeesByJob(JobType job) {
+    public List<Employee> findAllEmployeesByJob(JobType job) {
         Query q = entityManager.createQuery("Select e from Employee e where e.job = :job");
         q.setParameter("job", job);
         List<Employee> results = q.getResultList();

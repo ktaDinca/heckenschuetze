@@ -18,4 +18,6 @@ public interface DivisionService {
     List<Division> loadAll();
 
     Division findDivisionById(Long id);
+
+    void remove(Long divid);
 }

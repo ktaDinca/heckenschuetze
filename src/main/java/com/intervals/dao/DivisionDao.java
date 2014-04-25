@@ -38,4 +38,9 @@ public class DivisionDao extends BaseDao {
         }
         return null;
     }
+
+    public void remove(Long divid) {
+        Query q = entityManager.createQuery("Delete from Division where id = :id").setParameter("id", divid);
+        q.executeUpdate();
+    }
 }

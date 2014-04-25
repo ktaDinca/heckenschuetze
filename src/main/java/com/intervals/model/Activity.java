@@ -1,70 +1,73 @@
 package com.intervals.model;
 
+import freemarker.template.SimpleDate;
+
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author Catalin Dinca (alexandru.dinca2110@gmail.com)
  * @since March 3, 2014
  */
-//@Entity
-//@Table(name = "ts_activity")
+@Entity
+@Table(name = "ts_activity")
 public class Activity extends AbstractEntity {
 
-    @Column(name = "duration")
-    private Float duration;
+    @ManyToOne
+    @JoinColumn(name = "owner")
+    private Employee owner;
 
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dtimesheet_id")
-    private DailyTimeSheet timesheet;
+    @Column(name = "start")
+    private Date start;
 
-    @Column(name = "is_extra")
-    private Boolean isExtra;
+    @Column(name = "end")
+    private Date end;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
+    @ManyToOne
     private Project project;
 
-    public Float getDuration() {
-        return duration;
+    public Employee getOwner() {
+        return owner;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public DailyTimeSheet getTimesheet() {
-        return timesheet;
+    public Date getStart() {
+        return start;
     }
 
-    public Boolean getIsExtra() {
-        return isExtra;
+    public Date getEnd() {
+        return end;
     }
 
     public Project getProject() {
         return project;
     }
 
-    public void setDuration(Float duration) {
-        this.duration = duration;
+    public void setOwner(Employee owner) {
+        this.owner = owner;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setTimesheet(DailyTimeSheet timesheet) {
-        this.timesheet = timesheet;
+    public void setStart(Date start) {
+        this.start = start;
     }
 
-    public void setIsExtra(Boolean isExtra) {
-        this.isExtra = isExtra;
+    public void setEnd(Date end) {
+        this.end = end;
     }
 
     public void setProject(Project project) {
         this.project = project;
     }
-
 }

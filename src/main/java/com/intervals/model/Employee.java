@@ -36,8 +36,6 @@ public class Employee extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "dept_id")
-//    @JsonManagedReference
-//    @JsonBackReference
     private Department department;
 
     @Column(name = "job")

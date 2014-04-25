@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC
-        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
-        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
     <definition name=".mainTemplate" template="/WEB-INF/views/template/template.jsp">
-        <put-attribute name="sidebar" value="" />
-        <put-attribute name="header" value="/WEB-INF/views/header.jsp" />
-        <put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+        <put-attribute name="sidebar" value="/WEB-INF/views/sidebar.jsp" />
+        <!--<put-attribute name="header" value="" />-->
+        <!--<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />-->
         <put-attribute name="styles" value="" />
         <put-attribute name="scripts" value="" />
      </definition>
@@ -32,14 +32,18 @@
         <put-attribute name="scripts" value="/WEB-INF/views/homepage/_scripts.jsp" />
     </definition>
 
-    <definition name="homepage-admin-tile" extends=".mainTemplate">
-        <put-attribute name="title" value="Homepage" />
-        <put-attribute name="content" value="/WEB-INF/views/homepage/homepage-admin.jsp" />
-        <put-attribute name="styles" value="resources/css/homepage-admin.css" type="string" />
+    <definition name="today-tile" extends=".mainTemplate">
+        <put-attribute name="title" value="Today" />
+        <put-attribute name="content" value="/WEB-INF/views/timesheets/today.jsp" />
+        <put-attribute name="styles" value="/resources/css/today.css" type="string" />
         <!--<put-attribute name="scripts" value="/WEB-INF/views/homepage/_scripts.jsp" />-->
     </definition>
 
-    <definition name="departments-tile" extends=".blankTemplate">
-        <put-attribute name="content" value="/WEB-INF/views/admin/tab-emploees-content.jsp" />
+    <definition name="admin-panel-tile" extends=".mainTemplate">
+        <put-attribute name="title" value="Admin Panel" />
+        <put-attribute name="content" value="/WEB-INF/views/admin/admin-panel.jsp" />
+        <put-attribute name="styles" value="/resources/css/admin-panel.css" type="string" />
+        <!--<put-attribute name="scripts" value="/WEB-INF/views/homepage/_scripts.jsp" />-->
     </definition>
+
 </tiles-definitions>
