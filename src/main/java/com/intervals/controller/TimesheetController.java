@@ -1,9 +1,8 @@
 package com.intervals.controller;
 
 import com.intervals.model.*;
-import com.intervals.service.ActivityService;
-import com.intervals.service.DepartmentService;
-import com.intervals.service.ProjectService;
+import com.intervals.service.*;
+import com.intervals.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +31,12 @@ public class TimesheetController {
     @Autowired
     private ActivityService activityService;
 
+    @Autowired
+    private WeeklySheetService weeklySheetService;
+
+    @Autowired
+    private NotificationService notificationService;
+
 
 //    @RequestMapping("/homepage")
 //    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
@@ -51,6 +56,42 @@ public class TimesheetController {
         mv.addObject("loggedInUser", emp);
         return mv;
     }
+
+    @RequestMapping("/intervals/weekly-timesheet")
+    public ModelAndView weeklyTimesheets(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView("weekly-timesheet-tile");
+        return mv;
+    }
+
+    @RequestMapping("/intervals/weekly/submitLast")
+    @ResponseBody
+    public Map<String, Object> submitLastWeekly(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        Employee emp = (Employee) request.getSession().getAttribute("loggedInUser");
+
+        Date lastWeeksMonday = DateUtils.findLastWeeksMonday(new Date());
+        WeeklySheet last = weeklySheetService.findWeeklySheetByDateInWeek(lastWeeksMonday, emp);
+
+        if (last != null && !WeeklyActivityStatus.SUBMITTED_PENDING.equals(last.getStatus())) {
+            last.setStatus(WeeklyActivityStatus.SUBMITTED_PENDING);
+
+            weeklySheetService.save(last);
+
+            Notification notif = new Notification();
+            notif.setIssue_time(new Date());
+            notif.setMessage("I've worked hard!");
+            notif.setSheet(last);
+            notif.setIsSeen(false);
+            notif.setType(NotificationType.EMP2MGR);
+            notif.setReviewingManager(emp.getDepartment().getManager());
+
+            notificationService.save(notif);
+        }
+
+        map.put("message", "success");
+        return map;
+    }
+
 
     @RequestMapping(value = "/intervals/employee/activities")
     @ResponseBody
@@ -98,6 +139,16 @@ public class TimesheetController {
             if (start != null && !"undefined".equals(start)) {
                 Date s = new Date(Long.parseLong(start));
                 activity.setStart(s);
+
+                WeeklySheet ws = weeklySheetService.findWeeklySheetByDateInWeek(s, emp);
+                if (ws == null) {
+                    ws = new WeeklySheet();
+                    ws.setOwner(emp);
+                    ws.setStartingDay(DateUtils.findThisWeeksMonday(s));
+                    ws.setStatus(WeeklyActivityStatus.OPEN);
+                    weeklySheetService.save(ws);
+                }
+                activity.setWeeklySheet(ws);
             }
             if (end != null && !"undefined".equals(end)) {
                 Date e = new Date(Long.parseLong(end));
@@ -146,6 +197,5 @@ public class TimesheetController {
 
         return mv;
     }
-
 
 }

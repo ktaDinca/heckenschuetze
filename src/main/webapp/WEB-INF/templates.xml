@@ -39,6 +39,13 @@
         <!--<put-attribute name="scripts" value="/WEB-INF/views/homepage/_scripts.jsp" />-->
     </definition>
 
+    <definition name="weekly-timesheet-tile" extends=".mainTemplate">
+        <put-attribute name="title" value="Weekly" />
+        <put-attribute name="content" value="/WEB-INF/views/timesheets/weekly.jsp" />
+        <!--<put-attribute name="styles" value="/resources/css/today.css" type="string" />-->
+        <put-attribute name="scripts" value="/WEB-INF/views/timesheets/weekly_scripts.jsp" />
+    </definition>
+
     <definition name="admin-panel-tile" extends=".mainTemplate">
         <put-attribute name="title" value="Admin Panel" />
         <put-attribute name="content" value="/WEB-INF/views/admin/admin-panel.jsp" />

@@ -15,6 +15,9 @@
     <li class="top-bordered">
         <a href="<spring:url value="/intervals/today" />">today's</a>
     </li>
+    <li class="top-bordered">
+        <a href="<spring:url value="/intervals/weekly-timesheet" />">weekly timesheets</a>
+    </li>
 
     <c:if test="${loggedInUser.job eq 'ADMIN'}">
         <li class="top-bordered">

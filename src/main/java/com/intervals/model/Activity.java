@@ -1,9 +1,6 @@
 package com.intervals.model;
 
-import freemarker.template.SimpleDate;
-
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -30,6 +27,18 @@ public class Activity extends AbstractEntity {
     @JoinColumn(name = "project_id")
     @ManyToOne
     private Project project;
+
+    @JoinColumn(name = "weekly_id")
+    @ManyToOne
+    private WeeklySheet weeklySheet;
+
+    public WeeklySheet getWeeklySheet() {
+        return weeklySheet;
+    }
+
+    public void setWeeklySheet(WeeklySheet weeklySheet) {
+        this.weeklySheet = weeklySheet;
+    }
 
     public Employee getOwner() {
         return owner;

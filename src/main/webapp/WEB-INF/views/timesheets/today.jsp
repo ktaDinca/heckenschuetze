@@ -18,7 +18,7 @@
     function getRandColor(brightness){
         var rgb = [Math.random() * 256, Math.random() * 256, Math.random() * 256];
         var mix = [brightness*51, brightness*51, brightness*51];
-        var mixedrgb = [Math.floor((rgb[0] + mix[0]) / 2.0), Math.floor((rgb[1] + mix[1]) / 2.0), Math.floor((rgb[2] + mix[2]) / 2.0)]; //.map(function(x){ return (x/2.0).round()});
+        var mixedrgb = [Math.floor((rgb[0] + mix[0]) / 2.0), Math.floor((rgb[1] + mix[1]) / 2.0), Math.floor((rgb[2] + mix[2]) / 2.0)];
         return "rgb(" + mixedrgb.join(",") + ")";
     }
 
@@ -43,9 +43,14 @@
     }
 
     function clearAddActivityModal() {
+
+        console.log("clearing!");
+
         $('#addActivityModal #description').val('');
         $('#addActivityModal #id').val('');
-//        var projectId = $('#addActivityModal #projects option:selected').val();
+        $('#addActivityModal p').text('What did you do?');
+
+        $('#removeActivity').attr("disabled", true);
     }
 
     $(document).ready(function() {
@@ -71,8 +76,36 @@
             maxTime: 24,
             editable: true,
             eventColor: '#378006',
-            eventClick: function(calEvent, jsEvent, view) {
+            // this is called when you add another activity.
+            select: function(start, end, allDay) {
+                $('#addActivityModal').modal('show');
 
+                $('#saveActivity').unbind('click');
+                $('#saveActivity').click(function() {
+
+                    console.log("save din select");
+
+                    var description = $('#addActivityModal #description').val();
+                    var id= $('#addActivityModal #id').val();
+                    var projectId = $('#addActivityModal #projects option:selected').val();
+
+                    // an event should be saved only if it has a description
+                    if (description) {
+                        persistActivityChange(description, start.getTime(), end.getTime(), id, projectId, function(data) {
+                            if (data.message == 'success') {
+                                clearAddActivityModal();
+                                $('#addActivityModal').modal('hide');
+                                $('#calendar').fullCalendar('refetchEvents');
+                            }
+                        });
+                    }
+                    else {
+                        alert("Nu ai completat descrierea!");
+                    }
+                });
+                calendar.fullCalendar('unselect');
+            },
+            eventClick: function(calEvent, jsEvent, view) {
                 $('#addActivityModal .modal-header p').text('*Edit ' + calEvent.title);
 
                 $('#addActivityModal #description').val(calEvent.title);
@@ -104,8 +137,6 @@
                         alert("Nu ai completat descrierea!");
                     }
                 });
-
-
                 $('#removeActivity').removeAttr("disabled");
                 $('#removeActivity').click(function() {
                     var id= $('#addActivityModal #id').val();
@@ -115,36 +146,7 @@
 
                 });
 //                $(this).css('border-color', 'red');
-
-            },
-            // this is called when you add another activity.
-            select: function(start, end, allDay) {
-                $('#addActivityModal').modal('show');
-
-                $('#saveActivity').unbind('click');
-                $('#saveActivity').click(function() {
-
-                    console.log("save din select");
-
-                    var description = $('#addActivityModal #description').val();
-                    var id= $('#addActivityModal #id').val();
-                    var projectId = $('#addActivityModal #projects option:selected').val();
-
-                    // an event should be saved only if it has a description
-                    if (description) {
-                        persistActivityChange(description, start.getTime(), end.getTime(), id, projectId, function(data) {
-                            if (data.message == 'success') {
-                                clearAddActivityModal();
-                                $('#addActivityModal').modal('hide');
-                                $('#calendar').fullCalendar('refetchEvents');
-                            }
-                        });
-                    }
-                    else {
-                        alert("Nu ai completat descrierea!");
-                    }
-                });
-                calendar.fullCalendar('unselect');
+                clearAddActivityModal();
             },
             eventResize: function( event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view ) {
                 // send to the server the resized version of the event=activity
@@ -200,7 +202,6 @@
                 success: successCallback
             });
         }
-
     });
 
 
