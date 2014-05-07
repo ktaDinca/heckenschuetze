@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,12 +38,6 @@ public class TimesheetController {
     @Autowired
     private NotificationService notificationService;
 
-
-//    @RequestMapping("/homepage")
-//    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
-//        return new ModelAndView("homepage-tile");
-//    }
-
     @RequestMapping("/intervals/today")
     public ModelAndView today(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -57,19 +52,59 @@ public class TimesheetController {
         return mv;
     }
 
-    @RequestMapping("/intervals/weekly-timesheet")
+    @RequestMapping("/intervals/weekly")
     public ModelAndView weeklyTimesheets(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView("weekly-timesheet-tile");
         return mv;
     }
 
-    @RequestMapping("/intervals/weekly/submitLast")
+    @RequestMapping("/intervals/weekly/review")
+    public ModelAndView reviewTimesheets(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView("weekly-review-tile");
+        return mv;
+    }
+
+    @RequestMapping(value = "/intervals/weekly/check", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> submitLastWeekly(HttpServletRequest request, HttpServletResponse response) {
+    public Map<String, Object> getWeekly(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        String _start = request.getParameter("start");
+        if (_start == null || "undefined".equals(_start)) {
+            map.put("message", "failed");
+            return map;
+        }
+
+        Date start = new Date(Long.parseLong(_start));
+        Date thisWeeksMonday = DateUtils.findThisWeeksMonday(start);
+        Employee emp = (Employee) request.getSession().getAttribute("loggedInUser");
+
+        WeeklySheet weekly = weeklySheetService.findWeeklySheetByDateInWeek(thisWeeksMonday, emp);
+
+        map.put("weekly", weekly);
+        map.put("message", "success");
+        return map;
+    }
+
+    @RequestMapping("/intervals/weekly/submit")
+    @ResponseBody
+    public Map<String, Object> submitWeekly(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> map = new HashMap<String, Object>();
         Employee emp = (Employee) request.getSession().getAttribute("loggedInUser");
 
-        Date lastWeeksMonday = DateUtils.findLastWeeksMonday(new Date());
+        if (emp != null && JobType.DIVISION_MANAGER.equals(emp.getJob())) {
+            map.put("message", "success");
+            return map;
+        }
+
+        String _start = request.getParameter("start");
+        if (_start == null || "undefined".equals(_start)) {
+            map.put("message", "failed");
+            return map;
+        }
+
+        Date start = new Date(Long.parseLong(_start));
+        Date lastWeeksMonday = DateUtils.findThisWeeksMonday(start);
         WeeklySheet last = weeklySheetService.findWeeklySheetByDateInWeek(lastWeeksMonday, emp);
 
         if (last != null && !WeeklyActivityStatus.SUBMITTED_PENDING.equals(last.getStatus())) {
@@ -83,7 +118,13 @@ public class TimesheetController {
             notif.setSheet(last);
             notif.setIsSeen(false);
             notif.setType(NotificationType.EMP2MGR);
-            notif.setReviewingManager(emp.getDepartment().getManager());
+
+            if (JobType.DEPARTMENT_MANAGER.equals(emp.getJob())) {
+                notif.setReviewingManager(emp.getDepartment().getDivision().getManager());
+            }
+            else {
+                notif.setReviewingManager(emp.getDepartment().getManager());
+            }
 
             notificationService.save(notif);
         }
@@ -92,6 +133,68 @@ public class TimesheetController {
         return map;
     }
 
+    @RequestMapping(value = "/intervals/weekly/approve", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> approveWeekly(HttpServletRequest request, HttpServletResponse response, @RequestParam Long weeklyId, @RequestParam String action, @RequestParam Long notificationId) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        if (weeklyId == null || action == null || "undefined".equals(action) || action.length() < 1) {
+            map.put("message", "failed");
+            return map;
+        }
+
+        Employee emp = (Employee) request.getSession().getAttribute("loggedInUser");
+        if (emp == null || (!emp.getJob().equals(JobType.DEPARTMENT_MANAGER) && !emp.getJob().equals(JobType.DIVISION_MANAGER))) {
+            map.put("message", "failed");
+            return map;
+        }
+
+        WeeklySheet weekly = weeklySheetService.findWeeklySheetById(weeklyId);
+        if (weekly == null) {
+            map.put("message", "failed");
+            return map;
+        }
+
+        Notification notification = notificationService.findNotificationById(notificationId);
+
+        if (notification == null) {
+            map.put("message", "failed");
+            return map;
+        }
+        notification.setType(NotificationType.MGR2EMP);
+
+        if (action.equals("approve")) {
+            weekly.setStatus(WeeklyActivityStatus.OK);
+            notification.setMessage("Good job!");
+        }
+        else if (action.equals("reject")) {
+            weekly.setStatus(WeeklyActivityStatus.REJECTED);
+            notification.setMessage("Are you sure?");
+        }
+
+        weeklySheetService.save(weekly);
+        notificationService.save(notification);
+
+        map.put("message", "success");
+        return map;
+    }
+
+    @RequestMapping(value = "/intervals/employee/activities/week", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getActivitiesPerWeek(HttpServletRequest request, HttpServletResponse response, @RequestParam String _weeklyId) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        if (_weeklyId == null || "undefined".equals(_weeklyId)) {
+            map.put("message", "failed");
+            return map;
+        }
+
+        List<Activity> activities = activityService.findAllByWeekly(Long.parseLong(_weeklyId));
+
+        map.put("events", activities);
+        map.put("message", "success");
+        return map;
+    }
 
     @RequestMapping(value = "/intervals/employee/activities")
     @ResponseBody
@@ -197,5 +300,4 @@ public class TimesheetController {
 
         return mv;
     }
-
 }

@@ -12,7 +12,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "ts_employee")
-//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class Employee extends AbstractEntity {
 
     @Column(name = "username")

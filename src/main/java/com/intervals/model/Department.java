@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "ts_department")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="json_id")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Department extends AbstractEntity {
 
     @Column(name = "name", nullable = false)
@@ -19,8 +19,6 @@ public class Department extends AbstractEntity {
 
     @OneToOne
     @JoinColumn (name = "manager_id")
-//    @JsonBackReference
-//    @JsonManagedReference
     private Employee manager;
 
     @ManyToOne

@@ -8,10 +8,6 @@
         $('#editClientModal .modal-body #client_name').val('');
     }
 
-    $(document).ready(function() {
-        refreshClientsTable();
-    });
-
     function refreshClientsTable() {
         $('#clients-table > tbody').empty();
         loadClients();
@@ -47,6 +43,7 @@
 
                     var deleteLink = $('#remove_client_' + i);
                     deleteLink.click(createRemoveClientFunction(data.clients[i].id));
+                    deleteLink.css("color", "red");
                 }
             }
         });

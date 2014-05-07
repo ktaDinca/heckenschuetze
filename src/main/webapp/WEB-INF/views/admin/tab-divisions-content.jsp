@@ -106,7 +106,7 @@
                     }
 
                     line += '<td>' + '<a id="edit_div_' + i + '"' + 'data-toggle="modal" href="#editDivisionModal">' + 'edit' + '</a>' + '</td>' +
-                            '<td>' + '<a id="remove_div_' + i + '"' + 'data-toggle="modal" href="#removeDivisionsModal" >' + 'delete' + '</a>' + '</td>' +
+                            '<td>' + '<a id="remove_div_' + i + '"' + 'data-toggle="modal" href="#removeDivisionsModal" >' + 'remove' + '</a>' + '</td>' +
                             '</tr>';
 
                     table.append(line);
@@ -116,6 +116,7 @@
 
                     var deleteLink = $('#remove_div_' + i);
                     deleteLink.click(createRemoveDivisionFunction(data.divisions[i].id));
+                    deleteLink.css("color", "red");
                 }
             }
         });
@@ -125,10 +126,6 @@
         $('#divisions-table > tbody').empty();
         loadDivisions();
     }
-
-    $(document).ready(function() {
-        refreshDivisionsTable();
-    });
 
     function addDivisionClickHandler() {
         clearDivisionsModal();

@@ -1,6 +1,7 @@
 package com.intervals.service;
 
 import com.intervals.model.Department;
+import com.intervals.model.Employee;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface DepartmentService {
     Department findDepartmentById(Long dept_id);
 
     void remove(Long deptid);
+
+    Department findDepartmentByManager(Employee e);
 }

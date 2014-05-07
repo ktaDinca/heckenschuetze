@@ -40,8 +40,12 @@ public class AdminController {
 
     @RequestMapping(value = "/intervals/admin/panel")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView("admin-panel-tile");
 
-        return new ModelAndView("admin-panel-tile");
+        List<String> jobs = JobType.getAllValues();
+        mv.addObject("allJobs", jobs);
+
+        return mv;
     }
 
     @RequestMapping(value = "/intervals/admin/employees", method = RequestMethod.GET)
@@ -50,6 +54,13 @@ public class AdminController {
         Map<String, Object> map = new HashMap<String, Object>();
         List<Employee> emps = employeeService.loadAll();
 
+        for (Employee e: emps) {
+            if (e.getDepartment() == null && JobType.DEPARTMENT_MANAGER.equals(e.getJob())) {
+                Department d = departmentService.findDepartmentByManager(e);
+                e.setDepartment(d);
+            }
+        }
+
         map.put("employees", emps);
 
         return map;
@@ -57,10 +68,8 @@ public class AdminController {
 
     @RequestMapping(value = "/intervals/admin/employees/edit", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object > edit(HttpServletRequest request, HttpServletResponse response) {
-
+    public Map<String, Object> editEmployee(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> map = new HashMap<String, Object>();
-
 
         String username = request.getParameter("username");
 

@@ -1,9 +1,6 @@
 package com.intervals.dao;
 
-import com.intervals.model.Activity;
-import com.intervals.model.DailyTimeSheet;
-import com.intervals.model.Employee;
-import com.intervals.model.Project;
+import com.intervals.model.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -91,5 +88,19 @@ public class ActivityDao extends BaseDao {
     public void removeById(Long actId) {
         Query q = entityManager.createQuery("Delete from Activity a where id = :id").setParameter("id", actId);
         q.executeUpdate();
+    }
+
+    public List<Activity> findAllByWeekly(WeeklySheet currentWeekly) {
+        Query q = entityManager.createQuery("Select a from Activity a where a.weeklySheet.id = :id").setParameter("id", currentWeekly.getId());
+        List<Activity> results = q.getResultList();
+
+        return results;
+    }
+
+    public List<Activity> findAllByWeeklyId(Long weeklyId) {
+        Query q = entityManager.createQuery("Select a from Activity a where a.weeklySheet.id = :id").setParameter("id", weeklyId);
+        List<Activity> results = q.getResultList();
+
+        return results;
     }
 }

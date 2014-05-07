@@ -34,6 +34,7 @@
 
                         var removeLink = $('#remove_project_' + i);
                         removeLink.click(createRemoveProjectFunction(data.projects[i].id));
+                        removeLink.css("color", "red");
                     }
                 }
             }
@@ -81,9 +82,9 @@
         loadProjects();
     }
 
-    $(document).ready(function() {
-        refreshProjectsTable();
-    });
+//    $(document).ready(function() {
+//        refreshProjectsTable();
+//    });
 
     function loadAndPopulateClients() {
         $.ajax({

@@ -42,15 +42,22 @@
     <definition name="weekly-timesheet-tile" extends=".mainTemplate">
         <put-attribute name="title" value="Weekly" />
         <put-attribute name="content" value="/WEB-INF/views/timesheets/weekly.jsp" />
-        <!--<put-attribute name="styles" value="/resources/css/today.css" type="string" />-->
-        <put-attribute name="scripts" value="/WEB-INF/views/timesheets/weekly_scripts.jsp" />
+        <put-attribute name="styles" value="/resources/css/weekly.css" type="string" />
+        <put-attribute name="scripts" value="/WEB-INF/views/timesheets/weekly-scripts.jsp" />
+    </definition>
+
+    <definition name="weekly-review-tile" extends=".mainTemplate">
+        <put-attribute name="title" value="Review" />
+        <put-attribute name="content" value="/WEB-INF/views/timesheets/review-weekly.jsp" />
+        <put-attribute name="styles" value="/resources/css/review-weekly.css" type="string" />
+        <put-attribute name="scripts" value="/WEB-INF/views/timesheets/review-weekly-scripts.jsp" />
     </definition>
 
     <definition name="admin-panel-tile" extends=".mainTemplate">
         <put-attribute name="title" value="Admin Panel" />
         <put-attribute name="content" value="/WEB-INF/views/admin/admin-panel.jsp" />
         <put-attribute name="styles" value="/resources/css/admin-panel.css" type="string" />
-        <!--<put-attribute name="scripts" value="/WEB-INF/views/homepage/_scripts.jsp" />-->
+        <put-attribute name="scripts" value="/WEB-INF/views/admin/admin-panel_scripts.jsp" />
     </definition>
 
 </tiles-definitions>

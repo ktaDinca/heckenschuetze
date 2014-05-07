@@ -31,4 +31,9 @@ public class WeeklySheetServiceImpl implements WeeklySheetService {
         weeklySheetDao.saveOrUpdate(ws);
     }
 
+    @Override
+    public WeeklySheet findWeeklySheetById(Long id) {
+        return weeklySheetDao.findWeeklySheetById(id);
+    }
+
 }

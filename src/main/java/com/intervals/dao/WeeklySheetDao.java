@@ -27,4 +27,14 @@ public class WeeklySheetDao extends BaseDao {
         return null;
     }
 
+    public WeeklySheet findWeeklySheetById(Long id) {
+        Query q = entityManager.createQuery("Select w from WeeklySheet w where w.id = :id");
+        q.setParameter("id", id);
+
+        List<WeeklySheet> results = q.getResultList();
+        if (results != null && results.size() > 0) {
+            return results.get(0);
+        }
+        return null;
+    }
 }

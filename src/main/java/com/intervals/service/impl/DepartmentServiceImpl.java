@@ -2,6 +2,7 @@ package com.intervals.service.impl;
 
 import com.intervals.dao.DepartmentDao;
 import com.intervals.model.Department;
+import com.intervals.model.Employee;
 import com.intervals.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,5 +48,13 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (deptid != null) {
             departmentDao.remove(deptid);
         }
+    }
+
+    @Override
+    public Department findDepartmentByManager(Employee e) {
+        if (e.getId() != null) {
+            return departmentDao.findByManager(e.getId());
+        }
+        return null;
     }
 }

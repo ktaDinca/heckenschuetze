@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/flick/jquery-ui.css" type="text/css" />
 
 
+<h3>Userul logat: ${loggedInUser}</h3>
 <h1>Flick, Redmond</h1>
 
 <script>
@@ -78,6 +79,7 @@
             eventColor: '#378006',
             // this is called when you add another activity.
             select: function(start, end, allDay) {
+                clearAddActivityModal();
                 $('#addActivityModal').modal('show');
 
                 $('#saveActivity').unbind('click');
@@ -146,7 +148,7 @@
 
                 });
 //                $(this).css('border-color', 'red');
-                clearAddActivityModal();
+//                clearAddActivityModal();
             },
             eventResize: function( event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view ) {
                 // send to the server the resized version of the event=activity
@@ -169,8 +171,6 @@
 
                         for (var i = 0; i < data.events.length; i ++) {
                             var randomColor = generateRandomColor();
-                            console.log(randomColor);
-
                             events.push({
                                 id: data.events[i].id,
                                 title: data.events[i].description,

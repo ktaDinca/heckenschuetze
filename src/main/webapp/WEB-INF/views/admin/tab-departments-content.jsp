@@ -98,6 +98,13 @@
                     var line = '';
                     crtDept = null;
                     if (typeof data.departments[i] !== 'object') {
+                        console.log('departamentul urmator nu e object');
+                        console.log(data.departments[i]);
+
+                        console.log('map-ul de departamente din tab-departments:');
+                        console.log(departmentsMap);
+
+
                         if (departmentsMap[data.departments[i]] != null) {
                             crtDept = departmentsMap[data.departments[i]];
                         }
@@ -122,7 +129,7 @@
                         }
 
                         line += '<td>' + '<a id="edit_dep_' + i + '"' + 'data-toggle="modal" href="#editDeptModal">' + 'edit' + '</a>' + '</td>' +
-                                '<td>' + '<a id="remove_dep_' + i + '"' + 'data-toggle="modal" href="#removeDeptModal" >' + 'delete' + '</a>' + '</td>' +
+                                '<td>' + '<a id="remove_dep_' + i + '"' + 'data-toggle="modal" href="#removeDeptModal" >' + 'remove' + '</a>' + '</td>' +
                                 '</tr>';
                         table.append(line);
 
@@ -139,11 +146,6 @@
             }
         });
     }
-
-
-    $(document).ready(function() {
-        refreshDepartmentsTable();
-    });
 
     function addDepartmentClickHandler() {
         clearEditDeptModal();

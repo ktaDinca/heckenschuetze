@@ -63,7 +63,7 @@
         });
     }
 
-    // when the edit button is pressed
+    // when the editEmployee button is pressed
     function createPopulateEditModalFunction(employee) {
         return function () {
 
@@ -89,7 +89,7 @@
     function loadDepartments() {
         $.ajax({
             type: "get",
-            url : "<spring:url value="admin/departments" />",
+            url : "<spring:url value="/intervals/admin/departments" />",
             success : function(data) {
                 var departmentsSelect = $('#editModal .modal-body #departments');
                 departmentsSelect.empty();
@@ -130,7 +130,7 @@
                         }
                     }
                     else {
-                        departmentsMap[data.employees[i].department.json_id] = data.employees[i].department;
+                        departmentsMap[data.employees[i].department.id] = data.employees[i].department;
                         line += '<td>' + data.employees[i].department.name + '</td>';
                     }
                     line +=
@@ -139,20 +139,19 @@
                             '</tr>';
                     table.append(line);
 
-                    // when the edit button is pressed.
+                    // when the editEmployee button is pressed.
                     var editLink = $('#edit_' + i);
                     editLink.click(createPopulateEditModalFunction(data.employees[i]));
 
                     var removeLink = $('#remove_' + i);
                     removeLink.click(createRemoveEmployeeFunction(data.employees[i].id));
+                    removeLink.css("color", "red");
                 }
+                console.log('map-ul de departamente din employees: ');
+                console.log(departmentsMap);
             }
         });
     }
-
-    $(document).ready(function() {
-        refreshEmployeeTable();
-    });
 
     function clearEmployeeModal() {
         $('#editModal .modal-body #empno').val('');

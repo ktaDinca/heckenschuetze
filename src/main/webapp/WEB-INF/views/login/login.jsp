@@ -13,11 +13,7 @@
     }
 </style>
 
-<div>
-    <a href="<spring:url value="/homepage" />">
-        <img src="resources/images/logo.png">
-    </a>
-</div>
+<h3>Userul logat: ${loggedInUser}</h3>
 
 <div id="carousel" class="carousel slide">
     <div class="carousel-inner">

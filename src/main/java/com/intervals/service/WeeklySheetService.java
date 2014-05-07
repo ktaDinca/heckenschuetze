@@ -20,4 +20,6 @@ public interface WeeklySheetService {
     public WeeklySheet findWeeklySheetByDateInWeek(Date d, Employee emp);
 
     void save(WeeklySheet ws);
+
+    WeeklySheet findWeeklySheetById(Long id);
 }

@@ -1,4 +1,8 @@
 
+.modal {
+    overflow-y: hidden;
+}
+
 #wrapper {
     padding-left: 230px;
     transition: all 0.4s ease 0s;
