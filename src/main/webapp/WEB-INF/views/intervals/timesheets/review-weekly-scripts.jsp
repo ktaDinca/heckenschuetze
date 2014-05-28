@@ -1,21 +1,26 @@
 <%@ include file="/WEB-INF/taglibs.jsp" %>
 
 <script>
-
     $(document).ready(function() {
-        checkNotifications();
+        checkNotificationsEveryXseconds(30);
     });
 
+    function checkNotificationsEveryXseconds(seconds) {
+        setInterval(function() {
+            checkNotifications();
+        }, parseInt(seconds) * 1000);
+    }
+
     function checkNotifications() {
+        console.log("checking notifications");
         $.ajax({
             type: "post",
             url: "<spring:url value="/intervals/notifications/check" />",
             success: function(data) {
                 if (data.message == 'success') {
-                    console.log(data);
-
                     $('#notificationsPanel .badge').text(data.notifications.length);
                     var panelList = $('#notificationsPanel .list-group');
+                    panelList.empty();
                     for (var i = 0; i < data.notifications.length; i ++) {
                         var notif = '<a href="#" id="notif_' + data.notifications[i].id + '" class="list-group-item">' +
                                 data.notifications[i].sheet.owner.firstname + ' ' +
@@ -60,6 +65,7 @@
                     }
                 }
             });
+            checkNotifications();
         }
     }
 
@@ -129,6 +135,7 @@
                     });
                 }
             });
+            reviewCalendar.fullCalendar('gotoDate', new Date(notification.sheet.startingDay));
         }
     }
 </script>

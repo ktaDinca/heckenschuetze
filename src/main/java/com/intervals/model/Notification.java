@@ -31,6 +31,7 @@ public class Notification extends AbstractEntity {
     private Boolean isSeen;
 
     @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private NotificationType type;
 
     public Boolean getIsSeen() {

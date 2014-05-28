@@ -97,15 +97,8 @@
                 for (var i = 0; i < data.departments.length; i ++) {
                     var line = '';
                     crtDept = null;
-                    if (typeof data.departments[i] !== 'object') {
-                        console.log('departamentul urmator nu e object');
-                        console.log(data.departments[i]);
-
-                        console.log('map-ul de departamente din tab-departments:');
-                        console.log(departmentsMap);
-
-
-                        if (departmentsMap[data.departments[i]] != null) {
+                        if (typeof data.departments[i] !== 'object') {
+                            if (departmentsMap[data.departments[i]] != null) {
                             crtDept = departmentsMap[data.departments[i]];
                         }
                         else {

@@ -31,6 +31,8 @@
                 email : email
             },
             success : function (data) {
+                console.log("mesajul de retur pe save!");
+                console.log(data);
                 if (data.message == 'success') {
                     $('#editModal').modal('hide');
                     refreshEmployeeTable();
@@ -93,10 +95,16 @@
             success : function(data) {
                 var departmentsSelect = $('#editModal .modal-body #departments');
                 departmentsSelect.empty();
-
                 departmentsSelect.append('<option value="none"> select </option>');
                 for (var i = 0; i < data.departments.length; i ++) {
-                    departmentsSelect.append('<option value="' + data.departments[i].id + '">' + data.departments[i].name + '</option>');
+                    if (typeof data.departments[i] !== 'object') {
+                        if (departmentsMap[data.departments[i]] != null) {
+                            departmentsSelect.append('<option value="' + departmentsMap[data.departments[i]].id + '">' + departmentsMap[data.departments[i]].name + '</option>');
+                        }
+                    }
+                    else {
+                        departmentsSelect.append('<option value="' + data.departments[i].id + '">' + data.departments[i].name + '</option>');
+                    }
                 }
             }
         });

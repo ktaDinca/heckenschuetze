@@ -9,13 +9,10 @@
 
 </head>
 <body>
-
     <script type="text/javascript" src="resources/javascript/jquery.js" ></script>
     <script type="text/javascript" src="resources/javascript/bootstrap.js"></script>
 
     <tiles:insertAttribute name="scripts" />
-
     <tiles:insertAttribute name="content"/>
-
 </body>
 </html>

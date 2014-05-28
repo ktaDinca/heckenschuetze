@@ -5,7 +5,7 @@
 
 <tiles-definitions>
     <definition name=".mainTemplate" template="/WEB-INF/views/template/template.jsp">
-        <put-attribute name="sidebar" value="/WEB-INF/views/sidebar.jsp" />
+        <put-attribute name="sidebar" value="/WEB-INF/views/intervals/sidebar.jsp" />
         <!--<put-attribute name="header" value="" />-->
         <!--<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />-->
         <put-attribute name="styles" value="" />
@@ -20,44 +20,51 @@
 
     <definition name="login-tile" extends=".blankTemplate">
         <put-attribute name="title" value="welcome" />
-        <put-attribute name="content" value="/WEB-INF/views/login/login.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/intervals/login/login.jsp" />
         <put-attribute name="styles" value="resources/css/login.css" type="string" />
-        <put-attribute name="scripts" value="/WEB-INF/views/login/_scripts.jsp" />
+        <put-attribute name="scripts" value="/WEB-INF/views/intervals/login/_scripts.jsp" />
     </definition>
 
     <definition name="homepage-tile" extends=".mainTemplate">
         <put-attribute name="title" value="Homepage" />
-        <put-attribute name="content" value="/WEB-INF/views/homepage/homepage.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/intervals/homepage/homepage.jsp" />
         <put-attribute name="styles" value="resources/css/homepage.css" type="string" />
-        <put-attribute name="scripts" value="/WEB-INF/views/homepage/_scripts.jsp" />
+        <put-attribute name="scripts" value="/WEB-INF/views/intervals/homepage/_scripts.jsp" />
     </definition>
 
     <definition name="today-tile" extends=".mainTemplate">
         <put-attribute name="title" value="Today" />
-        <put-attribute name="content" value="/WEB-INF/views/timesheets/today.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/intervals/timesheets/today.jsp" />
         <put-attribute name="styles" value="/resources/css/today.css" type="string" />
         <!--<put-attribute name="scripts" value="/WEB-INF/views/homepage/_scripts.jsp" />-->
     </definition>
 
     <definition name="weekly-timesheet-tile" extends=".mainTemplate">
         <put-attribute name="title" value="Weekly" />
-        <put-attribute name="content" value="/WEB-INF/views/timesheets/weekly.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/intervals/timesheets/weekly.jsp" />
         <put-attribute name="styles" value="/resources/css/weekly.css" type="string" />
-        <put-attribute name="scripts" value="/WEB-INF/views/timesheets/weekly-scripts.jsp" />
+        <put-attribute name="scripts" value="/WEB-INF/views/intervals/timesheets/weekly-scripts.jsp" />
     </definition>
 
     <definition name="weekly-review-tile" extends=".mainTemplate">
         <put-attribute name="title" value="Review" />
-        <put-attribute name="content" value="/WEB-INF/views/timesheets/review-weekly.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/intervals/timesheets/review-weekly.jsp" />
         <put-attribute name="styles" value="/resources/css/review-weekly.css" type="string" />
-        <put-attribute name="scripts" value="/WEB-INF/views/timesheets/review-weekly-scripts.jsp" />
+        <put-attribute name="scripts" value="/WEB-INF/views/intervals/timesheets/review-weekly-scripts.jsp" />
     </definition>
 
     <definition name="admin-panel-tile" extends=".mainTemplate">
         <put-attribute name="title" value="Admin Panel" />
-        <put-attribute name="content" value="/WEB-INF/views/admin/admin-panel.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/intervals/admin/admin-panel.jsp" />
         <put-attribute name="styles" value="/resources/css/admin-panel.css" type="string" />
-        <put-attribute name="scripts" value="/WEB-INF/views/admin/admin-panel_scripts.jsp" />
+        <put-attribute name="scripts" value="/WEB-INF/views/intervals/admin/admin-panel_scripts.jsp" />
+    </definition>
+
+    <definition name="landing-tile" extends=".blankTemplate">
+        <put-attribute name="title" value="Airvals" />
+        <put-attribute name="content" value="/WEB-INF/views/airvals/landing.jsp" />
+        <put-attribute name="styles" value="" type="string" />
+        <put-attribute name="scripts" value="" />
     </definition>
 
 </tiles-definitions>
