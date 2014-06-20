@@ -67,4 +67,11 @@
         <put-attribute name="scripts" value="" />
     </definition>
 
+    <definition name="airvals-admin-tile" extends=".blankTemplate">
+        <put-attribute name="title" value="Airvals Control Panel"/>
+        <put-attribute name="content" value="/WEB-INF/views/airvals/airvals-admin.jsp"/>
+        <put-attribute name="styles" value="" type="string"/>
+        <put-attribute name="scripts" value=""/>
+    </definition>
+
 </tiles-definitions>

@@ -6,7 +6,7 @@
     function saveDepartment() {
 
         var name = $('#editDeptmodal .modal-body #dname').val();
-        var manager_id = $('#editDeptModal .modal-body #managers option:selected').val();
+        var manager_id = $('#editDeptModal .modal-body #managers ').val();
         var division_id = $('#editDeptModal .modal-body #divisions option:selected').val();
         var deptno = $('#editDeptModal .modal-body #depno').val();
 
