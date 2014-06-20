@@ -1,50 +1,17 @@
 
-//angular
-//    .module('airvals', []);
-//    .config(function($routeProvider){
-//
-//    });
-//    .controller('flightController', function($scope) {
-//        $scope.flights = [
-//            {
-//                id : "af2014",
-//                source : {
-//                    name : "Bucharest",
-//                    id : 2014
-//                },
-//                destination: {
-//                    name : "Amsterdam",
-//                    id : 2587
-//                },
-//                departure : new Date(-20),
-//                arrival : new Date(2),
-//                isOneWay: false,
-//                company : {
-//                    name : "KLM",
-//                    id : 8754114
-//                },
-//                capacity : 415,
-//                occupiedSeats : 74
-//            },
-//            {
-//                id : "f1231w",
-//                source : {
-//                    name : "Bucharest",
-//                    id : 2014
-//                },
-//                destination: {
-//                    name : "London",
-//                    id : 2587
-//                },
-//                departure : new Date(-20),
-//                arrival : new Date(2),
-//                isOneWay: false,
-//                company : {
-//                    name : "KGSW",
-//                    id : 74125
-//                },
-//                capacity : 418,
-//                occupiedSeats : 44
-//            }
-//        ];
-//    });
+angular
+    .module('airvals', ['ngRoute'])
+    .config(['$httpProvider', function($httpProvider) {
+        delete $httpProvider.defaults.headers.common["X-Requested-With"]
+    }])
+    .config(function ($routeProvider) {
+        var baseUrl = '/diplomarbeit/resources/spa-views/';
+        $routeProvider
+            .when('/', {
+                templateUrl: baseUrl + 'flights.html'
+            })
+    })
+    .controller('mainController', function($scope) {
+
+    });
+

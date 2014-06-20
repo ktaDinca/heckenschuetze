@@ -22,7 +22,7 @@
 <script src="<spring:url value="/resources/javascript/vendor/bootbox.min.js"/>"></script>
 
 <%--CONTROLLERS--%>
-<script src="<spring:url value="/resources/javascript/spa/MainController.js" />" ></script>
+<script src="<spring:url value="/resources/javascript/spa/mainController.js" />" ></script>
 <script src="<spring:url value="/resources/javascript/spa/FlightController.js" />"></script>
 <script src="<spring:url value="/resources/javascript/spa/SignInController.js"/>"></script>
 <script src="<spring:url value="/resources/javascript/spa/FlightServices.js"/>"></script>
