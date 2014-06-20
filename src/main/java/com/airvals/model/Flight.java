@@ -9,32 +9,78 @@ import java.util.Date;
  * @author Catalin Dinca (alexandru.dinca2110@gmail.com)
  * @since 25/May/2014
  */
-public class Flight extends AbstractEntity {
-//
-//    @ManyToOne
-//    @JoinColumn(name = "source_id")
-//    private Airport source;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "destination_id")
-//    private Airport destination;
-//
-//    @Column(name = "departure")
-//    @Temporal(TemporalType.DATE)
-//    private Date departure;
-//
-//    @Column(name = "arrival")
-//    @Temporal(TemporalType.DATE)
-//    private Date dueArrival;
-//
-//    @Column(name = "company_id")
-//    @ManyToOne
-//    private Company company;
-//
-//    @Column(name = "plane_type_id")
-//    @ManyToOne
-//    private PlaneType plane;
-//
-//
 
+@Entity
+@Table(name = "av_flight")
+public class Flight extends AbstractEntity {
+
+    @ManyToOne
+    @JoinColumn(name = "template_id")
+    private FlightTemplate template;
+
+    @Column(name = "departure")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date departure;
+
+    @Column(name = "arrival")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dueArrival;
+
+    @Column(name = "price")
+    private Long price;
+
+    @Column(name = "occupied_positions")
+    private Integer occupiedPositions;
+
+    @ManyToOne
+    @JoinColumn(name = "discount_id")
+    private Discount discount;
+
+    public FlightTemplate getTemplate() {
+        return template;
+    }
+
+    public Date getDeparture() {
+        return departure;
+    }
+
+    public Date getDueArrival() {
+        return dueArrival;
+    }
+
+    public Integer getOccupiedPositions() {
+        return occupiedPositions;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setTemplate(FlightTemplate template) {
+        this.template = template;
+    }
+
+    public void setDeparture(Date departure) {
+        this.departure = departure;
+    }
+
+    public void setDueArrival(Date dueArrival) {
+        this.dueArrival = dueArrival;
+    }
+
+    public void setOccupiedPositions(Integer occupiedPositions) {
+        this.occupiedPositions = occupiedPositions;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
 }

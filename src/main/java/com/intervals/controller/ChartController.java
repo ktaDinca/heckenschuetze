@@ -2,12 +2,10 @@ package com.intervals.controller;
 
 import com.intervals.model.Activity;
 import com.intervals.model.Employee;
-import com.intervals.model.Project;
 import com.intervals.model.WeeklySheet;
 import com.intervals.service.ActivityService;
 import com.intervals.service.WeeklySheetService;
 import com.intervals.util.DateUtils;
-import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**

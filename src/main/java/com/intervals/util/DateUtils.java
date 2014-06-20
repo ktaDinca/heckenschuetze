@@ -66,6 +66,15 @@ public class DateUtils {
         return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
     }
 
+    public static Date getEndOfTheDay(Date d) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        cal.set(Calendar.HOUR, 23);
+        cal.set(Calendar.MINUTE, 59);
+
+        return cal.getTime();
+    }
+
     public static String getDayInTheWeek(Integer index) {
         switch (index) {
             case 1:
