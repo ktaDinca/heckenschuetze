@@ -1,0 +1,64 @@
+
+body {
+    /*background: url(http://habrastorage.org/files/c9c/191/f22/c9c191f226c643eabcce6debfe76049d.jpg);*/
+    /*backgroud: url("resources/images/airvals_bkgr.jpg");*/
+    background-color: #3498db;
+}
+
+.jumbotron {
+    /*border-left: solid 4px #3498db;*/
+    text-align: center;
+    width: 40rem;
+    border-radius: 0.3rem;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    margin: 4rem auto;
+    background-color: #fff;
+    padding: 2rem;
+}
+
+.twitter-typeahead {
+    width: 100%;
+}
+
+.centered {
+    width: 100%;
+    margin: 0px auto;
+}
+.glyphicon-list-alt {
+    font-size: 10rem;
+    margin-top: 3rem;
+    color: #f96145;
+}
+
+input {
+    width: 100%;
+    margin-bottom: 1.4rem;
+    padding: 1rem;
+    background-color: #ecf2f4;
+    border-radius: 0.2rem;
+    border: none;
+}
+h2 {
+    margin-bottom: 3rem;
+    font-weight: bold;
+    color: #ababab;
+}
+.btn {
+    border-radius: 0.2rem;
+}
+.btn .glyphicon {
+    font-size: 3rem;
+    color: #fff;
+}
+
+#datepicker {
+    width: 100%;
+}
+
+.flight-step {
+    width: 40%;
+}
