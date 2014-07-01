@@ -1,12 +1,14 @@
 package com.airvals.service.impl;
 
 import com.airvals.dao.FlightDao;
+import com.airvals.dao.WeekdayPercentMapDao;
 import com.airvals.model.*;
 import com.airvals.service.FlightService;
 import com.intervals.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -19,6 +21,9 @@ public class FlightServiceImpl implements FlightService {
 
     @Autowired
     private FlightDao flightDao;
+
+    @Autowired
+    private WeekdayPercentMapDao weekdayPercentMapDao;
 
     @Override
     public List<Flight> findValidFlights(City source, City destination, Date departure, Integer seats) {
@@ -85,11 +90,48 @@ public class FlightServiceImpl implements FlightService {
         for (Flight f : flights) {
             temp = new FlightResult(f, null, null, null);
             results.add(temp);
+            temp.setPrice(computeFlightResultPrice(temp));
         }
         return results;
     }
 
+    private Float computeFlightResultPrice(FlightResult flightResult) {
+        Float price = new Float(0);
 
+        if (flightResult.getOutBoundStep1() != null) {
+            price += computeIndividualFlightPrice(flightResult.getOutBoundStep1());
+        }
+
+        if (flightResult.getOutBoundStep2() != null) {
+            price += computeIndividualFlightPrice(flightResult.getOutBoundStep2()) / 2;
+        }
+
+        if (flightResult.getInBoundStep1() != null) {
+            price += computeIndividualFlightPrice(flightResult.getInBoundStep1());
+        }
+
+        if (flightResult.getInBoundStep2() != null) {
+            price += computeIndividualFlightPrice(flightResult.getInBoundStep2()) / 2;
+        }
+
+        return price;
+    }
+
+    public Float computeIndividualFlightPrice(Flight f) {
+        Float price = new Float(0);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        String flightDay = sdf.format(f.getDeparture());
+
+        List<WeekdayPercentMap> map = weekdayPercentMapDao.getAll();
+
+        price += f.getTemplate().getBaseEURPrice();
+//        price += f.getTemplate().getBaseEURPrice() * weekdayPercentMapDao.getWPMbyDay(flightDay).getPercent() / 100;
+//
+//        price -= f.getTemplate().getBaseEURPrice() * (5 * (DateUtils.getDateDiff(new Date(), f.getDeparture(), TimeUnit.DAYS) / 30)) / 100;
+
+        return price;
+    }
 
 
     /**
@@ -110,6 +152,7 @@ public class FlightServiceImpl implements FlightService {
         FlightResult temp = null;
         for (Flight f : directFlights) {
             temp = new FlightResult(f, null, null, null);
+            temp.setPrice(computeFlightResultPrice(temp));
             results.add(temp);
         }
 
@@ -122,6 +165,7 @@ public class FlightServiceImpl implements FlightService {
             for (Flight f2 : indirectFlightsStep2) {
                 if (f1.getTemplate().getDestination().getId().equals(f2.getTemplate().getSource().getId())) {
                     temp = new FlightResult(f1, f2, null, null);
+                    temp.setPrice(computeFlightResultPrice(temp));
                     results.add(temp);
                 }
             }
@@ -141,6 +185,7 @@ public class FlightServiceImpl implements FlightService {
         for (Flight out : directOutBoundFlights) {
             for (Flight in : directInBoundFlights) {
                 temp = new FlightResult(out, null, in, null);
+                temp.setPrice(computeFlightResultPrice(temp));
                 results.add(temp);
             }
         }
@@ -162,6 +207,7 @@ public class FlightServiceImpl implements FlightService {
         for (FlightResult frOut : outDirect) {
             for (FlightResult frIn : inDirect) {
                 temp = new FlightResult(frOut.getOutBoundStep1(), frOut.getOutBoundStep2(), frIn.getOutBoundStep1(), frIn.getOutBoundStep2());
+                temp.setPrice(computeFlightResultPrice(temp));
                 results.add(temp);
             }
         }
@@ -170,6 +216,7 @@ public class FlightServiceImpl implements FlightService {
         for (FlightResult frOut : outDirect) {
             for (FlightResult frIn : inIndirect) {
                 temp = new FlightResult(frOut.getOutBoundStep1(), frOut.getOutBoundStep2(), frIn.getOutBoundStep1(), frIn.getOutBoundStep2());
+                temp.setPrice(computeFlightResultPrice(temp));
                 results.add(temp);
             }
         }
@@ -178,6 +225,7 @@ public class FlightServiceImpl implements FlightService {
         for (FlightResult frOut : outIndirect) {
             for (FlightResult frIn : inDirect) {
                 temp = new FlightResult(frOut.getOutBoundStep1(), frOut.getOutBoundStep2(), frIn.getOutBoundStep1(), frIn.getOutBoundStep2());
+                temp.setPrice(computeFlightResultPrice(temp));
                 results.add(temp);
             }
         }
@@ -186,6 +234,7 @@ public class FlightServiceImpl implements FlightService {
         for (FlightResult frOut : outIndirect) {
             for (FlightResult frIn : inIndirect) {
                 temp = new FlightResult(frOut.getOutBoundStep1(), frOut.getOutBoundStep2(), frIn.getOutBoundStep1(), frIn.getOutBoundStep2());
+                temp.setPrice(computeFlightResultPrice(temp));
                 results.add(temp);
             }
         }
@@ -367,6 +416,14 @@ public class FlightServiceImpl implements FlightService {
         }
 
         return results;
+    }
+
+    @Override
+    public Flight findByid(Long l) {
+        if (l == null) {
+            return null;
+        }
+        return flightDao.findById(l);
     }
 
     private Flight createFlight(FlightTemplate template, Date iter) {

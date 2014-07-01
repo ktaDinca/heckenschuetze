@@ -8,25 +8,13 @@
     transition: all 0.4s ease 0s;
 }
 
-#sidebar-wrapper {
-    margin-left: -230px;
-    left: 230px;
-    width: 230px;
-    background: #2e2e2e;
-    position: fixed;
-    height: 100%;
-    overflow-y: auto;
-    z-index: 1000;
-    transition: all 0.4s ease 0s;
-}
-
 #page-content-wrapper {
     width: 100%;
 }
 
 @font-face {
     font-family: lane_narrow;
-    src: url(../fonts/lane_narrow.ttf);
+    src: url(/diplomarbeit/resources/fonts/lane_narrow.ttf);
 }
 
 * {

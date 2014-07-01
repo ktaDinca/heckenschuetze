@@ -1,7 +1,6 @@
 package com.intervals.service.impl;
 
 import com.intervals.dao.DivisionDao;
-import com.intervals.model.Department;
 import com.intervals.model.Division;
 import com.intervals.service.DivisionService;
 import org.springframework.beans.factory.annotation.Autowired;

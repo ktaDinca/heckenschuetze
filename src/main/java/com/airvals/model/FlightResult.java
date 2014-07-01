@@ -1,15 +1,37 @@
 package com.airvals.model;
 
+import com.intervals.model.AbstractEntity;
+
+import javax.persistence.*;
+
 /**
  * @author Catalin Dinca (alexandru.dinca2110@gmail.com)
  * @since 09/Jun/2014
  */
-public class FlightResult {
+@Entity
+@Table(name = "av_flight_result")
+public class FlightResult extends AbstractEntity {
 
+    @ManyToOne
+    @JoinColumn(name = "outbound_step_1_id")
     private Flight outBoundStep1;
+
+    @ManyToOne
+    @JoinColumn(name = "outbound_step_2_id")
     private Flight outBoundStep2;
+
+    @ManyToOne
+    @JoinColumn(name = "inbound_step_1_id")
     private Flight inBoundStep1;
+
+    @ManyToOne
+    @JoinColumn(name = "inbound_step_2_id")
     private Flight inBoundStep2;
+
+    @Column(name = "price")
+    private Float price;
+
+    public FlightResult() {}
 
     public FlightResult(Flight goStep1, Flight goStep2, Flight backStep1, Flight backStep2) {
         this.outBoundStep1 = goStep1;
@@ -48,5 +70,13 @@ public class FlightResult {
 
     public void setInBoundStep2(Flight inBoundStep2) {
         this.inBoundStep2 = inBoundStep2;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 }

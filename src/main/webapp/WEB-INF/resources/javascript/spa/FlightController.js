@@ -2,7 +2,8 @@ angular
     .module('airvals')
     .controller('flightsController', ['$scope', '$http' , 'CityService', 'FlightService', function($scope, $http, CityService, FlightService) {
 
-        $scope.flightsProcessed = false;
+        $('#airvalsSearchPanel').addClass('animated slideInDown');
+
         // init datepicker
         $('.input-daterange').datepicker({
             todayHighlight: true,
@@ -111,7 +112,14 @@ angular
         };
 
         $scope.openAdminLogIn = function() {
+            $('#login-modal').addClass('animated slideOutDown');
+            setTimeout(function() {
+                $('#login-modal').modal('hide');
+                $('#login-modal').removeClass('animated slideOutDown');
+            }, 1500);
+
             $('#login-admin-modal').modal('toggle');
+
         };
 
         function compareFlightResults(flight1, flight2) {
@@ -156,4 +164,30 @@ angular
             }
             return true;
         }
+
+        $scope.buyTicket = function(flightResult, action) {
+            console.log(flightResult);
+
+            var familyName = $('#familyName').val();
+            var surname = $('#surname').val();
+            var idSeries = $('#idSeries').val();
+            var phoneno = $('#phoneno').val();
+            var idNumber = $('#idNumber').val();
+            var email = $('#email').val();
+
+            FlightService
+                .buyFlight(flightResult,familyName, surname, idSeries, idNumber, phoneno, email, action)
+                .success(function(data) {
+                    console.log(data);
+                    $scope.ticketLocation = data.ticketPath;
+                    $('#buyTicketModal').modal('hide');
+                    $('#ticketBoughtModal').modal('show');
+                });
+        };
+
+        $scope.openBuyTicketModal = function(flight) {
+            console.log("open");
+            $scope.selectedFlight = flight;
+            $('#buyTicketModal').modal('show');
+        };
     }]);

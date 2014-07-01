@@ -10,9 +10,6 @@
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/flick/jquery-ui.css" type="text/css" />
 
 
-<h3>Userul logat: ${loggedInUser}</h3>
-<h1>Flick, Redmond</h1>
-
 <script>
 
     //6 levels of brightness from 0 to 5, 0 being the darkest

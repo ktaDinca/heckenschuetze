@@ -7,7 +7,6 @@ import com.intervals.model.JobType;
 import com.intervals.service.DepartmentService;
 import com.intervals.service.DivisionService;
 import com.intervals.service.EmployeeService;
-import org.aspectj.internal.lang.annotation.ajcDeclareParents;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.*;
 
 /**
  * @author Catalin Dinca (alexandru.dinca2110@gmail.com)

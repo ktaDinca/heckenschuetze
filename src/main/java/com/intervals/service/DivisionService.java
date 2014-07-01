@@ -1,6 +1,5 @@
 package com.intervals.service;
 
-import com.intervals.model.Department;
 import com.intervals.model.Division;
 
 import java.util.List;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -82,7 +83,7 @@ public class ChartController {
 
         String start = request.getParameter("start");
         Date day = null;
-        if (start == null || "undefine".equals(start)) {
+        if (start == null || "undefined".equals(start)) {
             map.put("message", "failed");
             return map;
         }
@@ -98,26 +99,27 @@ public class ChartController {
         List<Activity> currentActivities = activityService.findAllByWeekly(currentWeekly);
 
         // ziua (monday), ora de inceput (8:40).
-        Map<Long, Date> startingHoursMap = new HashMap<Long, Date>();
-        Map<Long, Date> endingHoursMap = new HashMap<Long, Date>();
+        Map<String, Date> startingHoursMap = new HashMap<String, Date>();
+        Map<String, Date> endingHoursMap = new HashMap<String, Date>();
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         for (Activity activity : currentActivities) {
 
             if(startingHoursMap.get(DateUtils.goTodayAt1Am(activity.getStart())) == null) {
-                startingHoursMap.put(DateUtils.goTodayAt1Am(activity.getStart()).getTime(), activity.getStart());
+                startingHoursMap.put(sdf.format(DateUtils.goTodayAt1Am(activity.getStart())), activity.getStart());
             }
             else {
                 if (activity.getStart().before(startingHoursMap.get(DateUtils.goTodayAt1Am(activity.getStart())))) {
-                    startingHoursMap.put(DateUtils.goTodayAt1Am(activity.getStart()).getTime(), activity.getStart());
+                    startingHoursMap.put(sdf.format(DateUtils.goTodayAt1Am(activity.getStart())), activity.getStart());
                 }
             }
 
             if(endingHoursMap.get(DateUtils.goTodayAt1Am(activity.getEnd())) == null) {
-                endingHoursMap.put(DateUtils.goTodayAt1Am(activity.getEnd()).getTime(), activity.getEnd());
+                endingHoursMap.put(sdf.format(DateUtils.goTodayAt1Am(activity.getEnd())), activity.getEnd());
             }
             else {
                 if (activity.getEnd().before(endingHoursMap.get(DateUtils.goTodayAt1Am(activity.getEnd())))) {
-                    endingHoursMap.put(DateUtils.goTodayAt1Am(activity.getEnd()).getTime(), activity.getEnd());
+                    endingHoursMap.put(sdf.format(DateUtils.goTodayAt1Am(activity.getEnd())), activity.getEnd());
                 }
             }
         }

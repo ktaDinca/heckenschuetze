@@ -58,15 +58,18 @@
                         var crtEnd = data.endings[crtDay];
 
                         lineData.push({
-                            y: new Date(Number(crtDay)).getTime(),
-                            a: new Date(crtStart).getTime(),
-                            b: new Date(crtEnd).getTime()
+                            y: crtDay,
+                            a: new Date(crtStart).getHours(),
+                            b: new Date(crtEnd).getHours()
                         });
                     });
 
-                    console.log(lineData);
+                    if (lineData.length > 2) {
+                        console.log("lineData:");
+                        console.log(lineData);
+                        drawWorkingHoursLine('weekly-working-hours-line', lineData);
+                    }
 
-                    drawWorkingHoursLine('weekly-working-hours-line', lineData);
                 }
             }
         });
@@ -81,6 +84,8 @@
     }
 
     function drawWorkingHoursLine(elementId, content) {
+        console.log("morris!");
+        console.log(content);
         Morris.Line({
             element: elementId,
             data: content,
@@ -89,12 +94,6 @@
             xlabels: 'day',
             labels: ['Arrival', 'Departure'],
             hideHover: 'auto',
-            xLabelFormat: function(x) {
-                return $.format.date(x, 'ddd');
-            },
-            yLabelFormat: function(y) {
-                return $.format.date(y, 'h:mm');
-            },
             resize: true
         });
 

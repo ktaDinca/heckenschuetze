@@ -28,4 +28,7 @@ public interface FlightService {
     List<FlightResult> findIndicatorsForFlights(List<FlightResult> results, Boolean isOneWay, Boolean isDirectFlight);
 
     List<FlightResult> findOnlyIndirectFlights(City sourceCity, City destinationCity, Date departureDate, Integer seats);
+
+    Flight findByid(Long l);
+
 }

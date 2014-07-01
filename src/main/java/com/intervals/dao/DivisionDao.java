@@ -1,7 +1,6 @@
 package com.intervals.dao;
 
 import com.intervals.model.Division;
-import com.intervals.model.Employee;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -15,6 +15,8 @@
 
 <script src="<spring:url value="/resources/javascript/airvals/admin.js" />"></script>
 
+<link rel="stylesheet" href="<spring:url value="/resources/css/airvals/admin.css" />" />
+
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

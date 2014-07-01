@@ -34,11 +34,6 @@ public class ActivityDao extends BaseDao {
         entityManager.getTransaction().commit();
     }
 
-    public List<Activity> findActivitiesByDTS(DailyTimeSheet crtDTS) {
-        Query q = entityManager.createQuery("Select a from Activity a where a.timesheet.id = :id").setParameter("id", crtDTS.getId());
-        return q.getResultList();
-    }
-
     public List<Activity> findWorkPutIntoProject(Project p, Date from, Date to) {
         Query q = entityManager.createQuery("Select m from Activity m where m.timesheet.date > :from and m.timesheet.date < :to and m.project.id = :pid");
         q.setParameter("from", from);

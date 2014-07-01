@@ -87,6 +87,10 @@
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.3.2" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.3.1" />
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.6" />
+          <element id="library" level="project" name="Maven: com.itextpdf:itextpdf:5.0.6" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcmail-jdk14:1.38" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk14:1.38" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bctsp-jdk14:1.38" />
         </element>
       </element>
     </root>

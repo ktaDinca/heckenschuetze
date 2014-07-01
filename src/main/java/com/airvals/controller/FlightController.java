@@ -35,6 +35,19 @@ public class FlightController {
     @Autowired
     private PlaneService planeService;
 
+    @Autowired
+    private FlightResultService flightResultService;
+
+    @Autowired
+    private PersonService personService;
+
+    @Autowired
+    private TicketService ticketService;
+
+    @Autowired
+    private ReservationService reservationService;
+
+
     @RequestMapping(value = "/airvals/flights/search", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> searchFlights(HttpServletRequest request, HttpServletResponse response) {
@@ -129,6 +142,93 @@ public class FlightController {
         return map;
     }
 
+    @RequestMapping(value = "/airvals/flight-results/buy", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> buyTicket(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        String action = request.getParameter("action");
+
+        String _out1_id = request.getParameter("out1_id");
+        Long out1Id = null;
+        if (StringUtils.isNotEmptyNullOrUndefined(_out1_id)) {
+            out1Id = Long.parseLong(_out1_id);
+        }
+
+        String _out2_id = request.getParameter("out2_id");
+        Long out2Id = null;
+        if (StringUtils.isNotEmptyNullOrUndefined(_out2_id)) {
+            out2Id = Long.parseLong(_out2_id);
+        }
+
+        String _in1_id = request.getParameter("in1_id");
+        Long in1Id = null;
+        if (StringUtils.isNotEmptyNullOrUndefined(_in1_id)) {
+            in1Id = Long.parseLong(_out1_id);
+        }
+        String _in2_id = request.getParameter("in2_id");
+        Long in2Id = null;
+        if (StringUtils.isNotEmptyNullOrUndefined(_in2_id)) {
+            in2Id = Long.parseLong(_in2_id);
+        }
+
+        String price = request.getParameter("price");
+
+        String familyName = request.getParameter("familyName");
+        String surname = request.getParameter("surname");
+        String idSeries = request.getParameter("idSeries");
+        String idNumber = request.getParameter("idNumber");
+        String phoneNo = request.getParameter("phoneno");
+        String email = request.getParameter("email");
+
+        Flight out1 = flightService.findByid(out1Id);
+        Flight out2 = flightService.findByid(out2Id);
+        Flight in1 = flightService.findByid(in1Id);
+        Flight in2 = flightService.findByid(in2Id);
+
+        FlightResult fr = new FlightResult(out1, out2, in1, in2);
+        fr.setPrice(Float.parseFloat(price));
+
+        flightResultService.incrementAllFlightsOccupiedSeats(fr);
+        flightResultService.saveOrUpdate(fr);
+
+//        am salvat fr-ul.. acum trebuie sa creez un Person si sa-i asociez aluia un User daca are si un ticket.
+
+        // TODO: cautare dupa email...
+        Person p = new Person();
+        p.setEmail(email);
+        p.setIdNumber(idNumber);
+        p.setIdSeries(idSeries);
+        p.setFamilyName(familyName);
+        p.setSurname(surname);
+        p.setPhoneNumber(phoneNo);
+
+        personService.saveOrUpdate(p);
+
+        if ("buy".equals(action)) {
+            Ticket ticket = new Ticket();
+            ticket.setPerson(p);
+            ticket.setFlightResult(fr);
+            ticket.setCode(fr.getId() + "" + p.getId());
+            ticket.setPathToDocument(ticketService.buildDocument(fr, p, ticket.getCode(), action));
+            ticketService.saveOrUpdate(ticket);
+            map.put("filePath", ticket.getPathToDocument());
+        }
+        else {
+            Reservation reservation = new Reservation();
+            reservation.setPerson(p);
+            reservation.setIssueDate(new Date());
+            reservation.setCode(fr.getId() + "" + p.getId());
+            reservation.setPathToDocument(ticketService.buildDocument(fr, p, reservation.getCode(), action));
+            reservationService.saveOrUpdate(reservation);
+            map.put("filePath", reservation.getPathToDocument());
+        }
+
+        map.put("message", "success");
+
+        return map;
+    }
+
     @RequestMapping(value = "/airvals/flight/generate", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> generateFlights(HttpServletRequest request, HttpServletResponse response) {
@@ -214,6 +314,13 @@ public class FlightController {
         }
         else {
             error.append("* No valid week days provided\n");
+        }
+
+        String _basePrice = request.getParameter("basePrice");
+        Float basePrice = null;
+        if (StringUtils.isNotEmptyNullOrUndefined(_basePrice)) {
+            basePrice = Float.parseFloat(_basePrice);
+            template.setBaseEURPrice(basePrice);
         }
 
         flightTemplateService.save(template);

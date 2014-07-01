@@ -149,6 +149,8 @@ saveTemplate = function() {
         }
     }
 
+    var basePrice = $('#basePrice').val();
+
     $.ajax({
         type: "post",
         url: "/diplomarbeit/airvals/template/save",
@@ -158,7 +160,8 @@ saveTemplate = function() {
             planeId: planeTypeId,
             departureTime: departureTime.getTime(),
             arrivalTime: arrivalTime.getTime(),
-            days: days
+            days: days,
+            basePrice: basePrice
         },
         success: function(data) {
             console.log(data);

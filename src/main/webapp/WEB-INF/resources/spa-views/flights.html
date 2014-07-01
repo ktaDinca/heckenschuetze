@@ -1,26 +1,32 @@
 <div ng-controller="flightsController">
 
-    <div class="container-fluid" style="height: 100%">
-        <div class="container">
-            <button href="" class="btn btn-info" ng-click="openLogInModal()">log in</button>
-        </div>
+<ul class="cb-slideshow">
+    <li><span>&nbsp;</span></li>
+    <li><span>&nbsp;</span></li>
+    <li><span>&nbsp;</span></li>
+    <li><span>&nbsp;</span></li>
+    <li><span>&nbsp;</span></li>
+    <li><span>&nbsp;</span></li>
+</ul>
 
-        <div class="container-fluid">
+<div id="searchPanelContainer">
+    <div class="container-fluid">
+
+        <div class="container-fluid" id="searchContainer">
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
+                    <button href="" id="log-in-button" class="btn btn-info" ng-click="openLogInModal()">log in</button>
                     <!--PANEL-->
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="airvalsSearchPanel">
                         <div class="panel-header">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-sm-4"></div>
-                                    <div class="col-sm-4">
-                                        <span class="glyphicon glyphicon-list-alt"></span>
-
-                                        <h2>Airvals</h2>
+                                    <div class="col-sm-12">
+                                        <div id="airvals-logo-holder">
+                                            <img src="/diplomarbeit/resources/images/airvals_logo_50.png" >
+                                        </div>
                                     </div>
-                                    <div class="col-sm-4"></div>
                                 </div>
                             </div>
                         </div>
@@ -31,7 +37,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <input type="text"
-                                               placeholder="what city are you leaving behind?"
+                                               placeholder="What city are you leaving behind?"
                                                id="airport-source"
                                                class="typeahead"
                                                ng-model="source">
@@ -42,7 +48,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <input type="text"
-                                               placeholder="what city are you traveling to?"
+                                               placeholder="What city are you traveling to?"
                                                id="airport-dest"
                                                class="typeahead"
                                                ng-model="destination">
@@ -50,11 +56,10 @@
                                 </div>
 
                                 <!--ROW#4 SWITCHES-->
-                                <div class="row">
+                                <div class="row" id="switches-holder">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>One Way?</label>
-
                                             <div class="onoffswitch">
                                                 <input type="checkbox"
                                                        name="onoffswitch"
@@ -80,7 +85,8 @@
                                                        id="directFlightOnOff"
                                                        ng-checked="false"
                                                        ng-model="isDirectFlight">
-                                                <label class="onoffswitch-label" for="directFlightOnOff">
+                                                <label class="onoffswitch-label"
+                                                       for="directFlightOnOff">
                                                     <span class="onoffswitch-inner"></span>
                                                     <span class="onoffswitch-switch"></span>
                                                 </label>
@@ -95,7 +101,7 @@
                                         <!--<div class="form-group">-->
                                         <div class="input-daterange input-group" id="datepicker">
                                             <input type="text"
-                                                   placeholder="when are you leaving?"
+                                                   placeholder="When are you leaving?"
                                                    class="input-sm form-control"
                                                    name="start"
                                                    ng-model="departureDate"
@@ -107,7 +113,7 @@
                                                     </span>
 
                                             <input type="text"
-                                                   placeholder="when are you returning?"
+                                                   placeholder="When are you returning?"
                                                    class="input-sm form-control"
                                                    ng-model="returningDate"
                                                    ng-hide="isOneWay"/>
@@ -118,16 +124,16 @@
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <button class="btn btn-default full-width"
+                            <!--<div class="container-fluid">-->
+                                <!--<div class="row">-->
+                                    <!--<div class="col-sm-12">-->
+                                        <button class="btn"
                                                 ng-click="searchFlightsHandler()">
                                             <span class="glyphicon glyphicon-ok"></span>
                                         </button>
-                                    </div>
-                                </div>
-                            </div>
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
                         </div>
                     </div>
                 </div>
@@ -136,104 +142,154 @@
             </div>
         </div>
     </div>
+</div>
 
-    <div class="container-fluid" ng-show="flights.length > 0" style="background: #2c3e50;">
+<div class="container-fluid animated slideInLeft" id="flightResultContainer" ng-show="flights.length > 0">
         <div class="row" ng-show="fastest != null" ng-repeat="recomm in recommendations ">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
-                <div class="panel">
-                    <div class="panel-heading">
+            <div class="col-sm-12">
+                <div class="panel flight-panel">
+                    <div class="panel-header">
+                        {{recomm.outBoundStep1.template.source.city.name}}
+                        ({{recomm.outBoundStep1.template.source.code}}) -
+                        {{recomm.outBoundStep1.template.destination.city.name}}
+                        ({{recomm.outBoundStep1.template.destination.code}}): &nbsp;
                         {{recomm.name}}
                     </div>
-
                     <div class="panel-body">
                         <div class="col-sm-5">
                             <div ng-show="recomm.outBoundStep1 != null">
-                                <div>PLECARE</div>
+                                <h2>Departure</h2>
                                 <div>
-                                    {{recomm.outBoundStep1.template.source.code}} : todo
+                                    {{recomm.outBoundStep1.template.source.city.name}}
+                                    ({{recomm.outBoundStep1.template.source.code}}) :
+                                    {{recomm.outBoundStep1.departure | date : 'MMM, dd HH:mm'}}
                                     <br>
-                                    {{recomm.outBoundStep1.template.destination.code}} : todo
+                                    {{recomm.outBoundStep1.template.destination.city.name}}
+                                    ({{recomm.outBoundStep1.template.destination.code}}) :s
+                                    {{recomm.outBoundStep1.dueArrival | date : 'MMM, dd HH:mm'}}
                                 </div>
                                 <div ng-show="recomm.outBoundStep2 != null">
-                                    <p>------</p>
-                                    {{recomm.outBoundStep2.template.source.code}} : todo
+                                    <hr>
+                                    {{recomm.outBoundStep2.template.source.city.name}}
+                                    ({{recomm.outBoundStep2.template.source.code}}) :
+                                    {{recomm.outBoundStep2.departure | date : 'MMM, dd HH:mm'}}
                                     <br>
-                                    {{recomm.outBoundStep2.template.destination.code}} : todo
+                                    {{recomm.outBoundStep2.template.destination.city.name}}
+                                    ({{recomm.outBoundStep2.template.destination.code}}) :
+                                    {{recomm.outBoundStep2.dueArrival | date : 'MMM, dd HH:mm'}}
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-5">
                             <div ng-show="recomm.inBoundStep1 != null">
-                                <div>RETURN</div>
+                                <h2>Return</h2>
                                 <div>
-                                    {{recomm.inBoundStep1.template.source.code}} : todo
+                                    {{recomm.inBoundStep1.template.source.city.name}}
+                                    ({{recomm.inBoundStep1.template.source.code}}) :
+                                    {{recomm.inBoundStep1.departure | date : 'MMM, dd HH:mm'}}
                                     <br>
-                                    {{recomm.inBoundStep1.template.destination.code}} : todo
+                                    {{recomm.inBoundStep1.template.destination.city.name}}
+                                    ({{recomm.inBoundStep1.template.destination.code}}) :s
+                                    {{recomm.inBoundStep1.dueArrival | date : 'MMM, dd HH:mm'}}
                                 </div>
                                 <div ng-show="recomm.inBoundStep2 != null">
-                                    <p>------</p>
-                                    {{recomm.inBoundStep2.template.source.code}} : todo
+                                    {{recomm.inBoundStep2.template.source.city.name}}
+                                    ({{recomm.inBoundStep2.template.source.code}}) :
+                                    {{recomm.inBoundStep2.departure | date : 'MMM, dd HH:mm'}}
                                     <br>
-                                    {{recomm.inBoundStep2.template.destination.code}} : todo
+                                    {{recomm.inBoundStep2.template.destination.city.name}}
+                                    ({{recomm.inBoundStep2.template.destination.code}}) :s
+                                    {{recomm.inBoundStep2.dueArrival | date : 'MMM, dd HH:mm'}}
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <button class="btn btn-success">Buy</button>
+                            <button class="btn btn-success" ng-click="openBuyTicketModal(recomm)">Book / Buy</button>
+                            {{recomm.price}}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3"></div>
         </div>
 
         <div class="row" ng-repeat="flight in flights">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
-                <div class="panel">
+            <!--<div class="col-sm-2"></div>-->
+            <div class="col-sm-12">
+                <div class="panel flight-panel">
+                    <div class="panel-header">
+                        {{flight.outBoundStep1.template.source.city.name}}
+                        ({{flight.outBoundStep1.template.source.code}}) -
+                        {{flight.outBoundStep1.template.destination.city.name}}
+                        ({{flight.outBoundStep1.template.destination.code}})
+                    </div>
                     <div class="panel-body">
                         <div class="col-sm-5">
                             <div ng-show="flight.outBoundStep1 != null">
-                                <div>PLECARE</div>
+                                <h2>Departure</h2>
                                 <div>
-                                    {{flight.outBoundStep1.template.source.code}} : todo
+                                    {{flight.outBoundStep1.template.source.city.name}}
+                                    ({{flight.outBoundStep1.template.source.code}}) :
+                                    {{flight.outBoundStep1.departure | date : 'MMM, dd HH:mm'}}
                                     <br>
-                                    {{flight.outBoundStep1.template.destination.code}} : todo
+                                    {{flight.outBoundStep1.template.destination.city.name}}
+                                    ({{flight.outBoundStep1.template.destination.code}}) :s
+                                    {{flight.outBoundStep1.dueArrival | date : 'MMM, dd HH:mm'}}
                                 </div>
                                 <div ng-show="flight.outBoundStep2 != null">
-                                    {{flight.outBoundStep2.template.source.code}} : todo
+                                    <hr>
+                                    {{flight.outBoundStep2.template.source.city.name}}
+                                    ({{flight.outBoundStep2.template.source.code}}) :
+                                    {{flight.outBoundStep2.departure | date : 'MMM, dd HH:mm'}}
                                     <br>
-                                    {{flight.outBoundStep2.template.destination.code}} : todo
+                                    {{flight.outBoundStep2.template.destination.city.name}}
+                                    ({{flight.outBoundStep2.template.destination.code}}) :
+                                    {{flight.outBoundStep2.dueArrival | date : 'MMM, dd HH:mm'}}
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-5">
-                            <div ng-show="recomm.inBoundStep1 != null">
-                                <div>RETURN</div>
+                            <div ng-show="flight.inBoundStep1 != null">
+                                <h2>Return</h2>
                                 <div>
-                                    {{flight.inBoundStep1.template.source.code}} : todo
+                                    {{flight.inBoundStep1.template.source.city.name}}
+                                    ({{flight.inBoundStep1.template.source.code}}) :
+                                    {{flight.inBoundStep1.departure | date : 'MMM, dd HH:mm'}}
                                     <br>
-                                    {{flight.inBoundStep1.template.destination.code}} : todo
+                                    {{flight.inBoundStep1.template.destination.city.name}}
+                                    ({{flight.inBoundStep1.template.destination.code}}) :s
+                                    {{flight.inBoundStep1.dueArrival | date : 'MMM, dd HH:mm'}}
                                 </div>
-                                <div ng-show="recomm.inBoundStep2 != null">
-                                    {{flight.inBoundStep2.template.source.code}} : todo
+                                <div ng-show="flight.inBoundStep2 != null">
+                                    {{flight.inBoundStep2.template.source.city.name}}
+                                    ({{flight.inBoundStep2.template.source.code}}) :
+                                    {{flight.inBoundStep2.departure | date : 'MMM, dd HH:mm'}}
                                     <br>
-                                    {{flight.inBoundStep2.template.destination.code}} : todo
+                                    {{flight.inBoundStep2.template.destination.city.name}}
+                                    ({{flight.inBoundStep2.template.destination.code}}) :s
+                                    {{flight.inBoundStep2.dueArrival | date : 'MMM, dd HH:mm'}}
                                 </div>
-                            </div>
-                            <div ng-hide="recomm.inBoundStep1 != null">
-                                HIDDEN
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <button class="btn btn-info">Buy</button>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button class="btn btn-info" ng-click="openBuyTicketModal(flight)">Buy / Book</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span class="price-holder">{{flight.price}}</span>
+                                        <span class="currency-holder">&euro;</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-sm-3"></div>
+            <!--<div class="col-sm-2"></div>-->
         </div>
     </div>
 
@@ -242,7 +298,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <p>Fill in your data</p>
+                        <p>Please fill in your username and password combination</p>
                     </div>
                     <div class="modal-body">
                         <input type="text"
@@ -256,9 +312,15 @@
                                ng-model="password">
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" ng-click="submitLogin()">log in</button>
-                        <button class="btn btn-warning" ng-click="openRegisterModal()">Create new account</button>
-                        <button class="btn btn-warning" ng-click="openAdminLogIn()">Log in as Admin :></button>
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary" ng-click="submitLogin()">log in</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-warning" ng-click="openRegisterModal()">Create account</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-warning" ng-click="openAdminLogIn()">Admin Log in</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -270,7 +332,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <p>Fill in your data: Alex velea din vina ta:X:X:X:</p>
+                        <p>Please fill in your username and password combination</p>
                     </div>
                     <div class="modal-body">
                         <input type="email"
@@ -303,11 +365,11 @@
         </div>
     </div>
 
-    <div class="modal fade in" id="login-admin-modal" tab-index="-1" role="dialog" aria-hidden="true">
+    <div class="modal animated slideInUp" id="login-admin-modal" tab-index="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <p>Fill in your data</p>
+                    <p>Please fill in your username and password</p>
                 </div>
                 <form method="post" action="/diplomarbeit/airvals/admin/login">
                     <div class="modal-body">
@@ -325,6 +387,92 @@
                         <input type="submit" value="log in as admin">
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in" id="buyTicketModal" aria-hidden="true" role="dialog" tab-index="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        {{selectedFlight.outBoundStep1.template.source.city.name}}
+                        ({{selectedFlight.outBoundStep1.template.source.code}}) -
+                        {{selectedFlight.outBoundStep1.template.destination.city.name}}
+                        ({{selectedFlight.outBoundStep1.template.destination.code}})
+                    </div>
+                    <div>
+                        {{selectedFlight.outBoundStep1.departure | date : 'MMM, dd HH:mm'}} -
+                        {{selectedFlight.outBoundStep1.dueArrival | date : 'HH:mm'}}
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="familyName">Family name</label>
+                                    <input type="text" id="familyName">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="surname">Surname</label>
+                                    <input type="text" id="surname">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="idSeries">ID Series</label>
+                                    <input type="text" id="idSeries">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="idNumber">ID Number</label>
+                                    <input type="text" id="idNumber">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="phoneno">Phone number</label>
+                                    <input type="text" id="phoneno">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="email">e-mail</label>
+                                    <input type="text" id="email">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" ng-click="buyTicket(selectedFlight, 'buy')">Confirm pay</button>
+                    <button class="btn btn-info" ng-click="buyTicket(selectedFlight, 'book')">Book</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in" id="ticketBoughtModal" aria-hidden="true" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    cuie
+                </div>
+                <div class="modal-body">
+                    Congratulations! You're awsome :)
+                </div>
+                <div class="modal-footer">
+                    <a href="file://{{ticketLocation}}" class="btn btn-success">Click to open it</a>
+                </div>
             </div>
         </div>
     </div>

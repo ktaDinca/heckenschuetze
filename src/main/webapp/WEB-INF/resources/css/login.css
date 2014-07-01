@@ -1,3 +1,14 @@
+
+.carousel {
+    /*height: 100%;*/
+    margin-top: 75px;
+}
+
+.carousel-caption h1 {
+    font-size: 60px;
+}
+
+/*LOGIN DIALOG*/
 #login-dialog {
     width: 400px
 }
@@ -32,7 +43,7 @@
     margin-bottom: 0px;
 }
 
-#login-form input[type="submit"]  {
+#login-form input[type="submit"] {
     height: 60px;
     width: 100%;
     font-size: 30px;
@@ -56,6 +67,10 @@
     font-weight: inherit;
 }
 
-.carousel-caption h1 {
-    font-size: 71px;
+body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {
+    margin-right: 0;
+}
+
+.modal {
+    overflow-y: auto;
 }

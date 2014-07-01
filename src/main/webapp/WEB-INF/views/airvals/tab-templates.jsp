@@ -14,8 +14,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <p>Add new flight template</p>
-
-                    <p>This template will be used to generate flights.</p>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -104,10 +102,25 @@
                         </div>
                     </div>
 
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-3"></div>
+                            <div class="col-xs-6">
+                                <%--<div class="form-group">--%>
+                                    <label for="basePrice">Base Price (EUR)</label>
+                                    <input type="number" id="basePrice" min="10" max="2000" step="5">
+                                <%--</div>--%>
+                            </div>
+                            <div class="col-xs-3"></div>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" onclick="saveTemplate()">Save template</button>
                     </div>
+
                 </div>
+
             </div>
         </div>
     </div>

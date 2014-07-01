@@ -34,6 +34,8 @@
 <link rel="stylesheet" href="<spring:url value="/resources/css/airvals/flights.css"/>"/>
 <link rel="stylesheet" href="<spring:url value="/resources/css/on-off-switch.css"/>"/>
 
+<link rel="stylesheet" href="<spring:url value="/resources/css/animate.css"/>"/>
+
 <div ng-app="airvals">
     <div ng-controller="mainController">
         <div ng-view></div>

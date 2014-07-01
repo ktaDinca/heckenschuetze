@@ -1,0 +1,11 @@
+body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {
+    margin-right: 0;
+}
+
+.modal {
+    overflow-y: auto;
+}
+
+#addTemplateModal .modal-footer {
+    padding: 0px;
+}

@@ -25,11 +25,11 @@ public class FlightDao extends BaseDao {
 
         Query q = entityManager.createQuery(
                 "Select f " +
-                "from Flight f " +
-                "where f.template.source.city.id = :source_id and " +
-                "f.template.destination.city.id = :dest_id and " +
-                "f.departure > :departure and f.departure < :endOfDepartureDay and "  +
-                "f.occupiedPositions + :seatsWanted < f.template.plane.capacity"
+                        "from Flight f " +
+                        "where f.template.source.city.id = :source_id and " +
+                        "f.template.destination.city.id = :dest_id and " +
+                        "f.departure > :departure and f.departure < :endOfDepartureDay and " +
+                        "f.occupiedPositions + :seatsWanted < f.template.plane.capacity"
         );
 
         q.setParameter("source_id", source.getId());
@@ -77,5 +77,16 @@ public class FlightDao extends BaseDao {
         q.setParameter("seatsWanted", seats);
 
         return q.getResultList();
+    }
+
+    public Flight findById(Long id) {
+        Query q = entityManager.createQuery("Select f from Flight f where f.id = :id");
+        q.setParameter("id", id);
+
+        List<Flight> results = q.getResultList();
+        if (results != null && results.size() > 0) {
+            return results.get(0);
+        }
+        return null;
     }
 }

@@ -1,33 +1,67 @@
+@font-face {
+    font-family: lane_narrow;
+    src: url(/diplomarbeit/resources/fonts/lane_narrow.ttf);
+}
+
 
 body {
-    /*background: url(http://habrastorage.org/files/c9c/191/f22/c9c191f226c643eabcce6debfe76049d.jpg);*/
-    /*backgroud: url("resources/images/airvals_bkgr.jpg");*/
     background-color: #3498db;
 }
 
-.jumbotron {
-    /*border-left: solid 4px #3498db;*/
-    text-align: center;
-    width: 40rem;
-    border-radius: 0.3rem;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
-    margin: 4rem auto;
-    background-color: #fff;
-    padding: 2rem;
+#searchContainer #log-in-button {
+    width: 110px;
+    border-radius: 0px;
+}
+
+#searchContainer .panel {
+    border: 0px;
+}
+
+#searchContainer .panel-header {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    background: #34495e;
+}
+
+#searchContainer .panel-footer {
+    border-top: 0px;
+    padding: 0px;
+}
+
+#searchContainer .panel-footer button {
+    width: 100%;
+    height: 55px;
+    background: #f1c40f;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+#searchContainer .panel-body {
+    background: #ecf0f1;
+    padding: 20px;
+}
+
+#searchContainer .panel-body #switches-holder {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#airvals-logo-holder {
+    width: 137px;
+    margin: 30px auto 40px auto;
+}
+
+#login-dialog .modal-body {
+    background: #2e2e2e;
+    padding: 20px;
 }
 
 .twitter-typeahead {
     width: 100%;
 }
 
-.centered {
-    width: 100%;
-    margin: 0px auto;
-}
 .glyphicon-list-alt {
     font-size: 10rem;
     margin-top: 3rem;
@@ -38,18 +72,11 @@ input {
     width: 100%;
     margin-bottom: 1.4rem;
     padding: 1rem;
-    background-color: #ecf2f4;
+    background-color: #ffffff;
     border-radius: 0.2rem;
     border: none;
 }
-h2 {
-    margin-bottom: 3rem;
-    font-weight: bold;
-    color: #ababab;
-}
-.btn {
-    border-radius: 0.2rem;
-}
+
 .btn .glyphicon {
     font-size: 3rem;
     color: #fff;
@@ -61,4 +88,464 @@ h2 {
 
 .flight-step {
     width: 40%;
+}
+
+#searchContainer {
+    margin-top: 45px;
+}
+
+#login-modal .modal-header, #login-modal .modal-body, #login-modal .modal-footer {
+    -webkit-font-smoothing: antialiased;
+    font-family: lane_narrow;
+    font-weight: inherit;
+}
+
+
+/*LOGIN MODAL*/
+#login-modal .modal-header {
+    background: #ffffff;
+    font-size: 20px;
+}
+
+#login-modal .modal-body {
+    background: #34495e;
+}
+
+#login-modal .modal-body input {
+    background: #2c3e50;
+    border: 0px;
+    height: 40px;
+    font-size: 21px;
+}
+
+#login-modal .modal-footer {
+    background: #c0392b;
+    margin-top: 0px;
+    border-top: 0px;
+}
+
+#login-modal .modal-footer .btn {
+    border: 0px;
+    border-radius: 0px;
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+}
+
+#login-modal .modal-footer .col-sm-4:nth-child(1) .btn {
+    background: #3498db;
+}
+
+#login-modal .modal-footer .col-sm-4:nth-child(2) .btn {
+    background: #f1c40f;
+}
+
+#login-modal .modal-footer .col-sm-4:nth-child(3) .btn {
+    background: #9b59b6;
+}
+
+#registration-modal {
+    font-family: lane_narrow;
+    font-size: 30px;
+}
+
+#registration-modal .modal-header {
+    background: #f1c40f;
+    border-bottom: 0px;
+}
+
+#registration-modal .modal-body {
+    background: #3498db;
+}
+
+#registration-modal .modal-body input {
+    background: #2980b9;
+    border: 0px;
+    height: 40px;
+    font-size: 21px;
+    color: white;
+}
+
+#registration-modal .modal-body input::-webkit-input-placeholder {
+    color: #bdc3c7;
+}
+
+#registration-modal .modal-body input:-moz-placeholder{
+    color: #bdc3c7;
+}
+
+#registration-modal .modal-footer {
+    padding: 0px;
+    margin-top: 0px;
+    border-top: 0px;
+}
+
+#registration-modal .modal-footer button {
+    background: #2ecc71;
+    width: 100%;
+    height: 60px;
+    color: #2c3e50;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    font-size: 31px;
+}
+
+#login-admin-modal {
+    font-family: lane_narrow;
+}
+
+#login-admin-modal .modal-dialog {
+    width: 550px;
+}
+
+#login-admin-modal .modal-header {
+    font-size: 24px;
+}
+
+#login-admin-modal form {
+    margin-bottom: 0px;
+}
+
+#login-admin-modal .modal-body input {
+    background: #171717;
+    border: 0px;
+    height: 40px;
+    font-size: 21px;
+}
+
+#login-admin-modal .modal-body {
+    background: #2e2e2e;
+    padding: 20px;
+}
+
+#login-admin-modal .modal-footer {
+    padding: 0px;
+    margin-top: 0px;
+    border-top: 0px;
+}
+
+#login-admin-modal .modal-footer input[type="submit"] {
+    background: #6db4d0;
+    width: 100%;
+    height: 67px;
+    font-size: 28px;
+    margin-bottom: 0px;
+    color: #ecf0f1;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+
+
+
+body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {
+    margin-right: 0;
+}
+
+.modal {
+    overflow-y: auto;
+}
+
+
+/*IMAGE SLIDESHOW*/
+.cb-slideshow,
+.cb-slideshow:after {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 0;
+    list-style: none;
+}
+.cb-slideshow:after {
+    content: '';
+    /*background: transparent url(/diplomarbeit/resources/images/white-pattern.png) repeat top left;*/
+}
+.cb-slideshow li span {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: transparent;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: none;
+    opacity: 0;
+    z-index: 0;
+    -webkit-backface-visibility: hidden;
+    -webkit-animation: imageAnimation 36s linear infinite 0s;
+    -moz-animation: imageAnimation 36s linear infinite 0s;
+    -o-animation: imageAnimation 36s linear infinite 0s;
+    -ms-animation: imageAnimation 36s linear infinite 0s;
+    animation: imageAnimation 36s linear infinite 0s;
+}
+.cb-slideshow li div {
+    z-index: 1000;
+    position: absolute;
+    bottom: 30px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    color: #fff;
+    -webkit-animation: titleAnimation 36s linear infinite 0s;
+    -moz-animation: titleAnimation 36s linear infinite 0s;
+    -o-animation: titleAnimation 36s linear infinite 0s;
+    -ms-animation: titleAnimation 36s linear infinite 0s;
+    animation: titleAnimation 36s linear infinite 0s;
+}
+.cb-slideshow li div h3 {
+    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+    font-size: 240px;
+    padding: 0;
+    line-height: 200px;
+}
+.cb-slideshow li:nth-child(1) span {
+    background-image: url(/diplomarbeit/resources/images/paris.png)
+}
+.cb-slideshow li:nth-child(2) span {
+    background-image: url(/diplomarbeit/resources/images/london.png);
+    -webkit-animation-delay: 6s;
+    -moz-animation-delay: 6s;
+    -o-animation-delay: 6s;
+    -ms-animation-delay: 6s;
+    animation-delay: 6s;
+}
+
+.cb-slideshow li:nth-child(3) span {
+    background-image: url(/diplomarbeit/resources/images/berlin.png);
+    -webkit-animation-delay: 12s;
+    -moz-animation-delay: 12s;
+    -o-animation-delay: 12s;
+    -ms-animation-delay: 12s;
+    animation-delay: 12s;
+}
+.cb-slideshow li:nth-child(4) span {
+    background-image: url(/diplomarbeit/resources/images/prague.png);
+    -webkit-animation-delay: 18s;
+    -moz-animation-delay: 18s;
+    -o-animation-delay: 18s;
+    -ms-animation-delay: 18s;
+    animation-delay: 18s;
+}
+.cb-slideshow li:nth-child(5) span {
+    background-image: url(/diplomarbeit/resources/images/amstedam.png);
+    -webkit-animation-delay: 24s;
+    -moz-animation-delay: 24s;
+    -o-animation-delay: 24s;
+    -ms-animation-delay: 24s;
+    animation-delay: 24s;
+}
+.cb-slideshow li:nth-child(6) span {
+    background-image: url(/diplomarbeit/resources/images/rome.png);
+    -webkit-animation-delay: 30s;
+    -moz-animation-delay: 30s;
+    -o-animation-delay: 30s;
+    -ms-animation-delay: 30s;
+    animation-delay: 30s;
+}
+.cb-slideshow li:nth-child(2) div {
+    -webkit-animation-delay: 6s;
+    -moz-animation-delay: 6s;
+    -o-animation-delay: 6s;
+    -ms-animation-delay: 6s;
+    animation-delay: 6s;
+}
+.cb-slideshow li:nth-child(3) div {
+    -webkit-animation-delay: 12s;
+    -moz-animation-delay: 12s;
+    -o-animation-delay: 12s;
+    -ms-animation-delay: 12s;
+    animation-delay: 12s;
+}
+.cb-slideshow li:nth-child(4) div {
+    -webkit-animation-delay: 18s;
+    -moz-animation-delay: 18s;
+    -o-animation-delay: 18s;
+    -ms-animation-delay: 18s;
+    animation-delay: 18s;
+}
+.cb-slideshow li:nth-child(5) div {
+    -webkit-animation-delay: 24s;
+    -moz-animation-delay: 24s;
+    -o-animation-delay: 24s;
+    -ms-animation-delay: 24s;
+    animation-delay: 24s;
+}
+.cb-slideshow li:nth-child(6) div {
+    -webkit-animation-delay: 30s;
+    -moz-animation-delay: 30s;
+    -o-animation-delay: 30s;
+    -ms-animation-delay: 30s;
+    animation-delay: 30s;
+}
+/* Animation for the slideshow images */
+@-webkit-keyframes imageAnimation {
+    0% { opacity: 0;
+        -webkit-animation-timing-function: ease-in; }
+    8% { opacity: 1;
+        -webkit-animation-timing-function: ease-out; }
+    17% { opacity: 1 }
+    25% { opacity: 0 }
+    100% { opacity: 0 }
+}
+@-moz-keyframes imageAnimation {
+    0% { opacity: 0;
+        -moz-animation-timing-function: ease-in; }
+    8% { opacity: 1;
+        -moz-animation-timing-function: ease-out; }
+    17% { opacity: 1 }
+    25% { opacity: 0 }
+    100% { opacity: 0 }
+}
+@-o-keyframes imageAnimation {
+    0% { opacity: 0;
+        -o-animation-timing-function: ease-in; }
+    8% { opacity: 1;
+        -o-animation-timing-function: ease-out; }
+    17% { opacity: 1 }
+    25% { opacity: 0 }
+    100% { opacity: 0 }
+}
+@-ms-keyframes imageAnimation {
+    0% { opacity: 0;
+        -ms-animation-timing-function: ease-in; }
+    8% { opacity: 1;
+        -ms-animation-timing-function: ease-out; }
+    17% { opacity: 1 }
+    25% { opacity: 0 }
+    100% { opacity: 0 }
+}
+@keyframes imageAnimation {
+    0% { opacity: 0;
+        animation-timing-function: ease-in; }
+    8% { opacity: 1;
+        animation-timing-function: ease-out; }
+    17% { opacity: 1 }
+    25% { opacity: 0 }
+    100% { opacity: 0 }
+}
+/* Animation for the title */
+@-webkit-keyframes titleAnimation {
+    0% { opacity: 0 }
+    8% { opacity: 1 }
+    17% { opacity: 1 }
+    19% { opacity: 0 }
+    100% { opacity: 0 }
+}
+@-moz-keyframes titleAnimation {
+    0% { opacity: 0 }
+    8% { opacity: 1 }
+    17% { opacity: 1 }
+    19% { opacity: 0 }
+    100% { opacity: 0 }
+}
+@-o-keyframes titleAnimation {
+    0% { opacity: 0 }
+    8% { opacity: 1 }
+    17% { opacity: 1 }
+    19% { opacity: 0 }
+    100% { opacity: 0 }
+}
+@-ms-keyframes titleAnimation {
+    0% { opacity: 0 }
+    8% { opacity: 1 }
+    17% { opacity: 1 }
+    19% { opacity: 0 }
+    100% { opacity: 0 }
+}
+@keyframes titleAnimation {
+    0% { opacity: 0 }
+    8% { opacity: 1 }
+    17% { opacity: 1 }
+    19% { opacity: 0 }
+    100% { opacity: 0 }
+}
+/* Show at least something when animations not supported */
+.no-cssanimations .cb-slideshow li span{
+    opacity: 1;
+}
+
+@media screen and (max-width: 1140px) {
+    .cb-slideshow li div h3 { font-size: 140px }
+}
+@media screen and (max-width: 600px) {
+    .cb-slideshow li div h3 { font-size: 80px }
+}
+
+.flight-panel {
+    border: 0px;
+    margin: 20px auto;
+    font-family: lane_narrow;
+    width: 800px;
+}
+
+.flight-panel .panel-header {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    background: #ffcc00;
+    color: #ffffff;
+    height: 50px;
+    padding: 15px 0px 0px 15px;
+    font-size: 24px;
+    border: 0px;
+}
+
+.price-holder {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bolder;
+    padding-left: 10px;
+}
+
+.currency-holder {
+    font-size: 18px;
+    font-weight: 100;
+}
+
+.flight-panel .panel-body h2 {
+    font-size: 28px;
+}
+
+.flight-panel .panel-body {
+    background: #ffffff;
+    font-size: 17px;
+}
+
+#buyTicketModal {
+    font-family: lane_narrow;
+}
+
+#buyTicketModal .modal-header {
+    font-size: 24px;
+    background: #f1c40f;
+    border-bottom: 0px;
+    color: #ffffff;
+}
+
+#buyTicketModal .modal-body {
+    font-size: 18px;
+    background: #3498db;
+    color: #ffffff;
+}
+
+#buyTicketModal .modal-body input {
+    font-size: 18px;
+    background: #2980b9;
+    color: #ffffff;
+}
+
+#buyTicketModal .modal-footer {
+    background: #34495e;
+    margin-top: 0px;
+    border-top: 0px;
+    font-size: 16px;
+}
+
+#buyTicketModal .modal-footer button {
+    font-size: 16px;
 }

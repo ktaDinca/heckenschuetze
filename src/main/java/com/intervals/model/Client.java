@@ -1,6 +1,8 @@
 
 package com.intervals.model;
 
+import com.intervals.model.AbstractEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;

@@ -41,6 +41,9 @@ public class FlightTemplate extends AbstractEntity {
     @ManyToOne
     private Company company;
 
+    @Column(name = "base_eur_price")
+    private Float baseEURPrice;
+
     public Airport getSource() {
         return source;
     }
@@ -96,4 +99,13 @@ public class FlightTemplate extends AbstractEntity {
     public void setArrivalTime(Date arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
+
+    public Float getBaseEURPrice() {
+        return baseEURPrice;
+    }
+
+    public void setBaseEURPrice(Float baseEURPrice) {
+        this.baseEURPrice = baseEURPrice;
+    }
+
 }

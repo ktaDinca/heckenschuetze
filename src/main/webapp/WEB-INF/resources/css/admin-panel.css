@@ -1,4 +1,12 @@
 
+#headerTitleContainer {
+    margin-bottom: 25px;
+}
+
+#headerTitleContainer h1 {
+    text-align: center;
+}
+
 td {
     font-size: 20px;
 }

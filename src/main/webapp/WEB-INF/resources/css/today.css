@@ -5,3 +5,37 @@
     font-size: 18px;
 }
 
+#addActivityModal .modal-header {
+    background: #f1c40f;
+    font-size: 24px;
+}
+
+#addActivityModal .modal-body {
+    background: #ecf0f1;
+    font-size: 19px;
+}
+
+#addActivityModal .modal-footer {
+    background: #bdc3c7;
+    margin-top: 0px;
+}
+
+#addActivityModal .modal-footer button {
+    color: white;
+}
+
+#addActivityModal .modal-footer button:nth-child(1){
+    background: #e74c3c;
+}
+
+#addActivityModal .modal-footer button:nth-child(2){
+    background: #1abc9c;
+}
+
+#addActivityModal .modal-footer button:nth-child(3){
+    background: #3498db;
+    border: 0px;
+}
+
+
+
