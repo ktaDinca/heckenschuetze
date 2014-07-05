@@ -10,6 +10,9 @@
 
 <script src="<spring:url value="/resources/javascript/vendor/typeahead.js" />"></script>
 
+<%--MAPS--%>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
 <%--ANGULAR--%>
 <script src="<spring:url value="/resources/javascript/angular.js"/>"></script>
 <script src="<spring:url value="/resources/javascript/angular-route.js" />"></script>
@@ -20,6 +23,12 @@
 
 <%--BOOTBOX--%>
 <script src="<spring:url value="/resources/javascript/vendor/bootbox.min.js"/>"></script>
+
+<%--TRANSLATE--%>
+<script src="<spring:url value="/resources/javascript/vendor/angular-translate.js"/>"></script>
+
+<%--NG-MAPS--%>
+<script src="<spring:url value="/resources/javascript/vendor/ng-map.js"/>"></script>
 
 <%--CONTROLLERS--%>
 <script src="<spring:url value="/resources/javascript/spa/mainController.js" />" ></script>
@@ -33,6 +42,8 @@
 
 <link rel="stylesheet" href="<spring:url value="/resources/css/airvals/flights.css"/>"/>
 <link rel="stylesheet" href="<spring:url value="/resources/css/on-off-switch.css"/>"/>
+<link rel="stylesheet" href="<spring:url value="/resources/css/flag-icon.css"/>"/>
+
 
 <link rel="stylesheet" href="<spring:url value="/resources/css/animate.css"/>"/>
 

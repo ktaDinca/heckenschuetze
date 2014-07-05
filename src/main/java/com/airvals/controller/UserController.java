@@ -1,6 +1,8 @@
 package com.airvals.controller;
 
+import com.airvals.model.Interaction;
 import com.airvals.model.User;
+import com.airvals.service.InteractionService;
 import com.airvals.service.UserService;
 import com.intervals.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Catalin Dinca (alexandru.dinca2110@gmail.com)
@@ -24,6 +28,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private InteractionService interactionService;
 
     @RequestMapping(value = "/airvals/user/save", method = RequestMethod.POST)
     @ResponseBody
@@ -89,7 +96,7 @@ public class UserController {
 
         request.getSession().setAttribute("loggedAirvalsUser", user);
         map.put("message", "success");
-        map.put("isAdmin", "true");
+        map.put("loggedInUser", user);
         return map;
     }
 
@@ -115,4 +122,21 @@ public class UserController {
         return mv;
     }
 
+    @RequestMapping(value = "/airvals/user/history", method=RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getCurrentUserHistory(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        User user = (User) request.getSession().getAttribute("loggedAirvalsUser");
+        if (user == null) {
+            map.put("message", "failed");
+            return map;
+        }
+
+        List<Interaction> interactions = interactionService.findLegalInteractionsByUser(user);
+        map.put("message", "success");
+        map.put("interactions", interactions);
+
+        return map;
+    }
 }

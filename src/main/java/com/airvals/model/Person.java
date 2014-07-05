@@ -2,9 +2,7 @@ package com.airvals.model;
 
 import com.intervals.model.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author Catalin Dinca (alexandru.dinca2110@gmail.com)
@@ -31,6 +29,10 @@ public class Person extends AbstractEntity {
 
     @Column(name = "email")
     private String email;
+
+    @OneToOne
+    @JoinColumn
+    private User user;
 
     public String getFamilyName() {
         return familyName;
@@ -78,5 +80,13 @@ public class Person extends AbstractEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

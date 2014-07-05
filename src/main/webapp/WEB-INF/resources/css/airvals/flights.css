@@ -3,7 +3,6 @@
     src: url(/diplomarbeit/resources/fonts/lane_narrow.ttf);
 }
 
-
 body {
     background-color: #3498db;
 }
@@ -109,6 +108,7 @@ input {
 
 #login-modal .modal-body {
     background: #34495e;
+    color: #ecf0f1;
 }
 
 #login-modal .modal-body input {
@@ -116,6 +116,7 @@ input {
     border: 0px;
     height: 40px;
     font-size: 21px;
+    color: #ecf0f1;
 }
 
 #login-modal .modal-footer {
@@ -548,4 +549,124 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
 
 #buyTicketModal .modal-footer button {
     font-size: 16px;
+}
+
+#ticketBoughtModal {
+    font-family: lane_narrow;
+
+}
+
+#ticketBoughtModal .modal-body {
+    background: #3498db;
+    color: #ffffff;
+    font-size: 30px;
+}
+
+#ticketBoughtModal .modal-footer {
+    background: #34495e;
+    margin-top: 0px;
+    border-top: 0px;
+    font-size: 16px;
+}
+
+#ticketBoughtModal .modal-body div:nth-child(1) {
+    font-size: 34px;
+}
+#ticketBoughtModal .modal-body div:nth-child(2) {
+    font-size: 24px;
+}
+
+#ticketBoughtModal .modal-footer button {
+    background: #34495e;
+    font-size: 16px;
+    color: #ffffff;
+    width: 100%;
+    height: 40px;
+}
+
+.profile_img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    display: block;
+    border: 3px solid #95a5a6;
+    position: fixed;
+    top: 45%;
+    left: 90%;
+}
+
+
+#personalInfoModal .modal-dialog {
+    font-family: lane_narrow;
+    width: 75%;
+    height: 90%;
+}
+
+#personalInfoModal .modal-content {
+    height: 100%;
+}
+
+#personalInfoModal .modal-header {
+    color: #2980b9;
+    background: #ffffff;
+}
+
+#personalInfoModal .modal-header div:nth-child(1) {
+    font-size: 35px;
+}
+
+#personalInfoModal .modal-header div:nth-child(2) {
+    font-size: 22px;
+    color: #3498db;
+}
+
+#personalInfoModal div.interactionBuy {
+    border-left: 3px solid #c0392b;
+}
+
+#personalInfoModal div.interactionReserve {
+    border-left: 3px solid #3498db;
+}
+
+/* Turn on custom 8px wide scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: rgba(0,0,0,0);
+    -webkit-border-radius: 100px;
+}
+::-webkit-scrollbar:hover {
+    background-color: rgba(0, 0, 0, 0.09);
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    background: rgba(0,0,0,0.5);
+    -webkit-border-radius: 100px;
+    background-clip: padding-box;
+    border: 2px solid rgba(0, 0, 0, 0);
+    min-height: 10px;
+}
+::-webkit-scrollbar-thumb:vertical:active {
+    background: rgba(0,0,0,0.61);
+    -webkit-border-radius: 100px;
+}
+
+#searchContainer #flagRow img {
+    width: 38px;
+    height: 38px;
+}
+
+#gmapsModal .modal-dialog {
+    width: 50%;
+    height: 50%;
+}
+
+
+#gmapsModal .modal-content {
+    width: 100%;
+    height: 100%;
+}
+
+#gmapsModal .modal-body {
+    padding: 0px;
 }

@@ -73,7 +73,9 @@ public class TicketServiceImpl implements TicketService {
             Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
                     Font.BOLD);
 
-            Image image1 = Image.getInstance("");
+            Image image1 = Image.getInstance("c:/temp/airvals.png");
+            image1.scalePercent(75);
+            image1.setAlignment(Element.ALIGN_RIGHT);
             doc.add(image1);
 
             Paragraph paragraph1 = new Paragraph();
@@ -90,19 +92,17 @@ public class TicketServiceImpl implements TicketService {
             paragraph1.add(new Paragraph(" "));
 
             paragraph1.add(new Paragraph("Thank you for choosing to book your flight at Airvals. You are provided " +
-                    "with all the informations regarding your reservation: "));
+                    "with all the information regarding your reservation: "));
             paragraph1.add(new Paragraph(" "));
 
             if ("buy".equals(action)) {
                 paragraph1.add(new Paragraph("Ticket code: " + code));
-                paragraph1.add(new Paragraph("Ticket status: active within 24 hours of issuing time"));
+//                paragraph1.add(new Paragraph("Ticket status: active within 24 hours of issuing time"));
             } else {
                 paragraph1.add(new Paragraph("Reservation code: " + code));
                 paragraph1.add(new Paragraph("Reservation status: active within 24 hours of issuing time"));
             }
 
-
-            paragraph1.add(new Paragraph("We strongly recommend you to print this document or save in in your computer."));
             paragraph1.add(new Paragraph(" "));
             paragraph1.add(new Paragraph("Name: " + p.getFamilyName() + " " + p.getSurname()));
             paragraph1.add(new Paragraph("Telephone number: " + p.getPhoneNumber()));
@@ -144,6 +144,7 @@ public class TicketServiceImpl implements TicketService {
             paragraph1.add(new Paragraph(" "));
             paragraph1.add(new Paragraph("Should you have any questions, please do not hesitate to contact Airvals personnel."));
             paragraph1.add(new Paragraph(" "));
+            paragraph1.add(new Paragraph(" "));
             paragraph1.add(new Paragraph("Best regards, "));
             paragraph1.add(new Paragraph("Airvals Office"));
             paragraph1.add(new Paragraph(" "));
@@ -157,7 +158,7 @@ public class TicketServiceImpl implements TicketService {
             Image code128Image = code128.createImageWithBarcode(cb, null, null);
 //            code128Image.setAbsolutePosition(10,700);
             code128Image.scalePercent(100);
-            code128Image.setAlignment(Element.ALIGN_LEFT);
+            code128Image.setAlignment(Element.ALIGN_RIGHT);
             doc.add(code128Image);
 
             BarcodeQRCode qrcode = new BarcodeQRCode(code, 120, 120, null);

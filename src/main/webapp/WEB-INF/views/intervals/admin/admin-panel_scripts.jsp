@@ -19,8 +19,6 @@
         Bind a onTabShown event to each tab.
      */
     $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
-        console.log(e.target);
-
         var targetA = e.target.toString();
 
         // if departments tab has been pressed

@@ -22,6 +22,12 @@ public class Airport extends AbstractEntity {
     @JoinColumn(name = "city_id ")
     private City city;
 
+    @Column(name = "latitude")
+    private Float latitude;
+
+    @Column(name = "longitude")
+    private Float longitude;
+
     public String getCode() {
         return code;
     }
@@ -44,5 +50,21 @@ public class Airport extends AbstractEntity {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
     }
 }

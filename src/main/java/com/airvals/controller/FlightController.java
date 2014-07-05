@@ -47,6 +47,12 @@ public class FlightController {
     @Autowired
     private ReservationService reservationService;
 
+    @Autowired
+    private InteractionService interactionService;
+
+    @Autowired
+    private UserService userService;
+
 
     @RequestMapping(value = "/airvals/flights/search", method = RequestMethod.POST)
     @ResponseBody
@@ -139,6 +145,8 @@ public class FlightController {
         map.put("message", "success");
         map.put("flights", results);
 
+        User user = (User) request.getSession().getAttribute("loggedAirvalsUser");
+        interactionService.save(new Interaction(user, "search", sourceCity, destinationCity, new Date(), new Float(0)));
         return map;
     }
 
@@ -164,7 +172,7 @@ public class FlightController {
         String _in1_id = request.getParameter("in1_id");
         Long in1Id = null;
         if (StringUtils.isNotEmptyNullOrUndefined(_in1_id)) {
-            in1Id = Long.parseLong(_out1_id);
+            in1Id = Long.parseLong(_in1_id);
         }
         String _in2_id = request.getParameter("in2_id");
         Long in2Id = null;
@@ -202,8 +210,15 @@ public class FlightController {
         p.setFamilyName(familyName);
         p.setSurname(surname);
         p.setPhoneNumber(phoneNo);
-
         personService.saveOrUpdate(p);
+
+        User associatedUser = userService.findUserByEmail(email);
+        if (associatedUser != null) {
+            p.setUser(associatedUser);
+        }
+
+        User user = (User) request.getSession().getAttribute("loggedAirvalsUser");
+        interactionService.save(new Interaction(user, "buy".equals(action) ? "buy" : "reserve", out1.getTemplate().getSource().getCity(), (in1 != null) ? in1.getTemplate().getSource().getCity() : null, new Date(), new Float(0)));
 
         if ("buy".equals(action)) {
             Ticket ticket = new Ticket();
