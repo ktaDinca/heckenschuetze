@@ -42,7 +42,9 @@
 
 <link rel="stylesheet" href="<spring:url value="/resources/css/airvals/flights.css"/>"/>
 <link rel="stylesheet" href="<spring:url value="/resources/css/on-off-switch.css"/>"/>
-<link rel="stylesheet" href="<spring:url value="/resources/css/flag-icon.css"/>"/>
+
+TYPEAHEAD
+<link rel="stylesheet" href="<spring:url value="/resources/css/typeahead.css"/>"/>
 
 
 <link rel="stylesheet" href="<spring:url value="/resources/css/animate.css"/>"/>
