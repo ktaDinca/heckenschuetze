@@ -4,7 +4,9 @@ import com.airvals.model.*;
 import com.airvals.service.*;
 import com.intervals.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -242,6 +244,12 @@ public class FlightController {
         map.put("message", "success");
 
         return map;
+    }
+
+    @RequestMapping(value = "/airvals/files/{filename}", method = RequestMethod.GET)
+    @ResponseBody
+    public FileSystemResource getReports(HttpServletRequest request, HttpServletResponse response, @PathVariable("filename") String filename) {
+        return new FileSystemResource("c:/reports/" + filename + ".pdf");
     }
 
     @RequestMapping(value = "/airvals/flight/generate", method = RequestMethod.POST)

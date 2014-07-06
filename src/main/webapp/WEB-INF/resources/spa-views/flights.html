@@ -34,7 +34,7 @@
                     <div class="container-fluid">
                         <div class="row" id="flagRow">
                             <div class="col-sm-3">
-                                <a ng-click="changeLanguage('en');"><img src="/diplomarbeit/resources/images/flags/uk.png"></a>
+                                <div ng-click="changeLanguage('en');"><img src="/diplomarbeit/resources/images/flags/uk.png"></div>
                             </div>
                             <div class="col-sm-3">
                                 <a ng-click="changeLanguage('ro');"><img src="/diplomarbeit/resources/images/flags/ro.png"></a>
@@ -50,11 +50,16 @@
                         <!--ROW#2 SOURCE-->
                         <div class="row">
                             <div class="col-sm-12">
-                                <input type="text"
-                                       placeholder="{{ 'SOURCE_PLACEHOLDER' | translate }}"
-                                       id="airport-source"
-                                       class="typeahead"
-                                       ng-model="source">
+                                <div class="form-group">
+                                    <input type="text"
+                                           placeholder="{{ 'SOURCE_PLACEHOLDER' | translate }}"
+                                           id="airport-source"
+                                           class="typeahead"
+                                           ng-model="source"
+                                           ng-blur="validateSourceCity()"
+                                           ng-focus="removeValidation(&quot;airport-source&quot;)"
+                                            >
+                                </div>
                             </div>
                         </div>
 
@@ -65,7 +70,10 @@
                                        placeholder="{{ 'DEST_PLACEHOLDER' | translate }}"
                                        id="airport-dest"
                                        class="typeahead"
-                                       ng-model="destination">
+                                       ng-model="destination"
+                                       ng-blur="validateDestinationCity()"
+                                       ng-focus="removeValidation(&quot;airport-dest&quot;)"
+                                        >
                             </div>
                         </div>
 
@@ -119,19 +127,26 @@
                                            placeholder="{{'START_DATE_PLACEHOLDER' | translate }}"
                                            class="input-sm form-control"
                                            name="start"
+                                           id="departureDateInput"
                                            ng-model="departureDate"
+                                           ng-blur="validateDate(&quot;departureDateInput&quot;)"
+                                           ng-focus="removeValidation(&quot;departureDateInput&quot;)"
                                             />
 
-                                                    <span class="input-group-addon"
-                                                          ng-hide="isOneWay">
-                                                        &nbsp;until&nbsp;
-                                                    </span>
+                                    <span class="input-group-addon"
+                                          ng-hide="isOneWay">
+                                        &nbsp;until&nbsp;
+                                    </span>
 
                                     <input type="text"
                                            placeholder="{{ 'RETURN_DATE_PLACEHOLDER' | translate }}"
                                            class="input-sm form-control"
+                                           id="returningDateInput"
                                            ng-model="returningDate"
-                                           ng-hide="isOneWay"/>
+                                           ng-hide="isOneWay"
+                                           ng-blur="validateDate(&quot;returningDateInput&quot;)"
+                                           ng-focus="removeValidation(&quot;returningDateInput&quot;)"
+                                            />
                                 </div>
                                 <!--</div>-->
                             </div>
@@ -149,9 +164,12 @@
         <!--empty col to make the previous one centered-->
         <div class="col-sm-4">
             <div ng-show="user != undefined">
-                <div ng-click="openPersonalInfoModal()">
-                    <img class="profile_img animated slideInRight" ng-click="muie()" src="/diplomarbeit/resources/images/photo-cd.png">
-                </div>
+                    <div id="profileImageContainer">
+                        <img class="profile_img animated slideInRight"
+                             src="/diplomarbeit/resources/images/photo-cd.png"
+                             ng-click="openPersonalInfoModal()"
+                             >
+                    </div>
             </div>
         </div>
     </div>
@@ -483,7 +501,7 @@
                     <div>{{'TICKET_BOUGHT_MODAL_CONGRATULATIONS_TEXT' | translate}}</div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success">{{'TICKET_BOUGHT_MODAL_BUTTON_TEXT' | translate}}</button>
+                    <a href="/diplomarbeit/airvals/files/{{ticketLocation}}" target="_blank" class="btn btn-success">{{'TICKET_BOUGHT_MODAL_BUTTON_TEXT' | translate}}</a>
                 </div>
             </div>
         </div>
@@ -500,6 +518,25 @@
                         <!--<marker position="London Heathrow International"></marker>-->
                         <!--<marker position="Charles de Gaulle Airport"></marker>-->
                     </map>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in" id="errorModal" aria-hidden="true" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="col-md-11">
+                            <div ng-repeat="error in validationErrors">
+                                {{error | translate}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

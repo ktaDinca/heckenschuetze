@@ -43,10 +43,13 @@
 <link rel="stylesheet" href="<spring:url value="/resources/css/airvals/flights.css"/>"/>
 <link rel="stylesheet" href="<spring:url value="/resources/css/on-off-switch.css"/>"/>
 
-TYPEAHEAD
+<%--TYPEAHEAD--%>
 <link rel="stylesheet" href="<spring:url value="/resources/css/typeahead.css"/>"/>
 
+<%--ZOE HOVER--%>
+<link rel="stylesheet" href="<spring:url value="/resources/css/zoe-hover.css"/>"/>
 
+<%--ANIMATIONS--%>
 <link rel="stylesheet" href="<spring:url value="/resources/css/animate.css"/>"/>
 
 <div ng-app="airvals">

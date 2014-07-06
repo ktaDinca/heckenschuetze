@@ -22,6 +22,7 @@
         <mvc:annotation-driven />
 
         <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
+        <!--<mvc:resources mapping="/reports/**" location="file:/c:/reports/" />-->
 
         <!--HIBERNATE-->
         <tx:annotation-driven transaction-manager="transactionManager"/>

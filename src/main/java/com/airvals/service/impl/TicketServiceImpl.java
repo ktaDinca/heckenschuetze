@@ -50,7 +50,7 @@ public class TicketServiceImpl implements TicketService {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd_mm_yy");
         String filename = p.getFamilyName() + "_" + fr.getId() + "_" + sdf.format(new Date());
-        String path = "c:/temp/" + filename + ".pdf";
+        String path = "c:/reports/" + filename + ".pdf";
 
         try {
             pdfWriter = PdfWriter.getInstance(doc, new FileOutputStream(path));
@@ -184,6 +184,6 @@ public class TicketServiceImpl implements TicketService {
             }
         }
 
-        return path;
+        return filename + ".pdf";
     }
 }

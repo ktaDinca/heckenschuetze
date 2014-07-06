@@ -11,6 +11,27 @@ angular
         });
 
         $scope.searchFlightsHandler = function() {
+
+            $scope.validationErrors = [];
+            console.log("validationErrors dupa ce a fost golit");
+            console.log($scope.validationErrors);
+
+            $scope.validateSourceCity();
+            $scope.validateDestinationCity();
+            $scope.validateDate('departureDateInput');
+            if (!$scope.isOneWay) {
+                $scope.validateDate('returningDateInput');
+            }
+
+            console.log("validation dupa");
+            console.log($scope.validationErrors);
+
+            // second round of checks
+            if ($scope.validationErrors != null && $scope.validationErrors.length > 0) {
+                $('#errorModal').modal('show');
+                return false;
+            }
+
             $scope.source = $('#airport-source').val();
             $scope.destination = $('#airport-dest').val();
 
@@ -58,6 +79,7 @@ angular
 
 //        AUTOCOMPLETION SHIT
         CityService.getCities().success(function (data) {
+
             var substringMatcher = function (strs) {
                 return function findMatches(q, cb) {
                     var matches, substringRegex;
@@ -83,9 +105,11 @@ angular
             };
 
             var states = [];
+            $scope.allCityNames = [];
 
             for (var i = 0; i < data.cities.length; ++i) {
                 states.push(data.cities[i].name);
+                $scope.allCityNames.push(data.cities[i].name);
             }
 
             $('.typeahead').typeahead(
@@ -179,7 +203,7 @@ angular
                 .buyFlight(flightResult,familyName, surname, idSeries, idNumber, phoneno, email, action)
                 .success(function(data) {
                     console.log(data);
-                    $scope.ticketLocation = data.ticketPath;
+                    $scope.ticketLocation = data.filePath;
                     $('#buyTicketModal').modal('hide');
                     $('#ticketBoughtModal').modal('show');
                 });
@@ -327,5 +351,91 @@ angular
             returnFlightPath.setMap($scope.map);
         }
 
+        $scope.validationErrors = [];
+
+        // validation rules for search input
+        $scope.validateSourceCity = function() {
+            $scope.source = $('#airport-source').val();
+            if ($scope.allCityNames.indexOf($scope.source) > -1) {
+                $('#airport-source').addClass('has-success');
+                var errorPosition = $scope.validationErrors.indexOf('SOURCE_CITY_INVALID');
+                if (errorPosition > -1) {
+                    $scope.validationErrors.splice(errorPosition, 1);
+                }
+            }
+            else {
+                $('#airport-source').addClass('has-error');
+                var errorPosition = $scope.validationErrors.indexOf('SOURCE_CITY_INVALID');
+                if (errorPosition < 0) {
+                    $scope.validationErrors.push('SOURCE_CITY_INVALID');
+                }
+
+            }
+        };
+
+        $scope.validateDestinationCity = function() {
+            $scope.destination = $('#airport-dest').val();
+            if ($scope.allCityNames.indexOf($scope.destination) > -1) {
+                $('#airport-dest').addClass('has-success');
+                var errorPosition = $scope.validationErrors.indexOf('DESTINATION_CITY_INVALID');
+                if (errorPosition > -1) {
+                    $scope.validationErrors.splice(errorPosition, 1);
+                }
+            }
+            else {
+                $('#airport-dest').addClass('has-error');
+
+                var errorPosition = $scope.validationErrors.indexOf('DESTINATION_CITY_INVALID');
+                if (errorPosition < 0) {
+                    $scope.validationErrors.push('DESTINATION_CITY_INVALID');
+                }
+            }
+        };
+
+        $scope.validateDate = function(id) {
+            if (id == 'departureDateInput') {
+                if ($scope.departureDate == null ||
+                    $scope.departureDate == undefined ||
+                    $scope.departureDate.length < 1 ||
+                    new Date($scope.departureDate) < new Date()) {
+
+                        $('#' + id).addClass('has-error');
+                    var errorPosition = $scope.validationErrors.indexOf('DEPARTURE_DATE_INVALID');
+                    if (errorPosition < 0) {
+                        $scope.validationErrors.push('DEPARTURE_DATE_INVALID');
+                    }
+                } else {
+                    $('#' + id).addClass('has-success');
+                    var errorPosition = $scope.validationErrors.indexOf('DEPARTURE_DATE_INVALID');
+                    if (errorPosition > -1) {
+                        $scope.validationErrors.splice(errorPosition, 1);
+                    }
+                }
+            }
+            else {
+                if ($scope.returningDate == null ||
+                    $scope.returningDate == undefined ||
+                    $scope.returningDate.length < 1 ||
+                    new Date($scope.returningDate) < new Date()) {
+                    $('#' + id).addClass('has-error');
+                    var errorPosition = $scope.validationErrors.indexOf('RETURNING_DATE_INVALID');
+                    if (errorPosition < 0) {
+                        $scope.validationErrors.push('RETURNING_DATE_INVALID');
+                    }
+                }
+                else {
+                    $('#' + id).addClass('has-success');
+                    var errorPosition = $scope.validationErrors.indexOf('RETURNING_DATE_INVALID');
+                    if (errorPosition > -1) {
+                        $scope.validationErrors.splice(errorPosition, 1);
+                    }
+                }
+            }
+        };
+
+        $scope.removeValidation = function(id) {
+            $('#' + id).removeClass('has-success');
+            $('#' + id).removeClass('has-error');
+        }
 
     }]);

@@ -50,7 +50,12 @@ angular
             TICKET_BOUGHT_MODAL_CONGRATULATIONS_TEXT : 'You have successfully purchased your ticket!',
             TICKET_BOUGHT_MODAL_BUTTON_TEXT : 'Click to open it',
 
-            PERSONAL_INFO_MODAL_HEADER : 'Here are your past actions:'
+            PERSONAL_INFO_MODAL_HEADER : 'Here are your past actions:',
+
+            SOURCE_CITY_INVALID : 'The source city is invalid!',
+            DESTINATION_CITY_INVALID : 'The destination city is invalid!',
+            DEPARTURE_DATE_INVALID : 'Incorrect departure date!',
+            RETURNING_DATE_INVALID : 'Incorrect returning date!'
         })
         .translations('de', {
 
@@ -95,7 +100,12 @@ angular
                 TICKET_BOUGHT_MODAL_CONGRATULATIONS_TEXT : 'Sie haben erfolgreich Ihr Ticket gekauft!',
                 TICKET_BOUGHT_MODAL_BUTTON_TEXT : 'Klicken Sie, um sie zu \xF6ffnen',
 
-                PERSONAL_INFO_MODAL_HEADER : 'Hier sind Ihre letzten Aktionen:'
+                PERSONAL_INFO_MODAL_HEADER : 'Hier sind Ihre letzten Aktionen:',
+
+                SOURCE_CITY_INVALID : 'Quelle Stadt ist ung\xFCltig',
+                DESTINATION_CITY_INVALID : 'Zielort ist ung\xFCltig',
+                DEPARTURE_DATE_INVALID : 'Abreisedatum ist ung\xFCltig',
+                RETURNING_DATE_INVALID : 'Rückflugtermin ist ung\xFCltig'
         })
         .translations('fr', {
                 // è - \xE8
@@ -140,7 +150,12 @@ angular
                 TICKET_BOUGHT_MODAL_CONGRATULATIONS_TEXT : 'Vous avez r\xE9ussi \xE0 acheter votre billet!',
                 TICKET_BOUGHT_MODAL_BUTTON_TEXT : 'Cliquez pour ouvrir',
 
-                PERSONAL_INFO_MODAL_HEADER : 'Voici vos actions pass\xE9es:'
+                PERSONAL_INFO_MODAL_HEADER : 'Voici vos actions pass\xE9es:',
+
+                SOURCE_CITY_INVALID : 'La ville source n\'est pas valide',
+                DESTINATION_CITY_INVALID : 'La ville de destination n\'est pas valide',
+                DEPARTURE_DATE_INVALID : 'Date de d\xE9part n\'est pas valide',
+                RETURNING_DATE_INVALID : 'date de retour n\'est pas valide'
         })
         .translations('ro', {
                 LOG_IN : 'login',
@@ -180,7 +195,12 @@ angular
                 TICKET_BOUGHT_MODAL_CONGRATULATIONS_TEXT : 'Sunteti posesorul unui bilet Airvals!',
                 TICKET_BOUGHT_MODAL_BUTTON_TEXT : 'Click pentru a-l deschide',
 
-                PERSONAL_INFO_MODAL_HEADER : 'Istoricul dumneavoastra'
+                PERSONAL_INFO_MODAL_HEADER : 'Istoricul dumneavoastra',
+
+                SOURCE_CITY_INVALID : 'Orasul sursa este invalid!',
+                DESTINATION_CITY_INVALID : 'Orasul destinatie este invalid!',
+                DEPARTURE_DATE_INVALID : 'Data plecarii este incorecta!',
+                RETURNING_DATE_INVALID : 'Data de intoarcere este incorecta!'
         });
 
         $translateProvider.preferredLanguage('en');
