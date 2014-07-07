@@ -718,3 +718,12 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
     color: #ecf0f1;
     opacity: 1;
 }
+
+#switches-holder .form-group > label {
+    text-align: center;
+    width: 100%;
+}
+
+.onoffswitch {
+    margin: 0px auto;
+}

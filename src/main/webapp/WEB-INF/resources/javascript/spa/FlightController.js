@@ -209,6 +209,10 @@ angular
                 });
         };
 
+        $scope.closeTicketBoughtModal = function() {
+            $('#ticketBoughtModal').modal('close');
+        }
+
         $scope.openBuyTicketModal = function(flight) {
             console.log("open");
             $scope.selectedFlight = flight;
