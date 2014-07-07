@@ -1,7 +1,18 @@
 
+body {
+    zoom: 1;
+}
+
+#pageHeader {
+    width: 100%;
+    text-align: center;
+}
+
 #calendar {
+    margin-top: 50px;
     width: 75%;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
     font-size: 18px;
 }
 

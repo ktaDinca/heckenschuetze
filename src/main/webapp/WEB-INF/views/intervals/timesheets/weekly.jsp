@@ -23,7 +23,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12" id="datepickeContainer">
             <div class="date-picker">
                 <div class="date-container pull-left">
                     <h4 class="weekday">Monday</h4>
@@ -37,34 +37,34 @@
         </div>
     </div>
 
-    <div id="weekly-status" class="row">
-        <div class="col-md-12">
+    <div class="row" id="weekly-status">
+        <div class="col-md-6" id="submitWeeklyContainer">
             <button style="display: none" class="btn btn-info" id="submitThisTimesheet">Submit this timesheet</button>
 
-            <div style="display: none" class="alert alert-info alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <div style="display: none" class="alert alert-info">
+                <%--<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>--%>
                 <p>Your timesheet is not submitted!</p>
             </div>
 
-            <div style="display: none" class="alert alert-warning alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <div style="display: none" class="alert alert-warning">
+                <%--<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>--%>
                 <p>Your timesheet is waiting for approval!</p>
             </div>
 
-            <div style="display: none" class="alert alert-danger alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <div style="display: none" class="alert alert-danger">
+                <%--<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>--%>
                 <p>Your timesheet has been rejected!</p>
             </div>
 
-            <div style="display: none" class="alert alert-success alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <div style="display: none" class="alert alert-success">
+                <%--<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>--%>
                 <p>Your timesheet is approved!</p>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6" id="arrivalChartContainer">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     Arrival chart
@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4" id="workingHoursContainer">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     Work chart
@@ -84,6 +84,10 @@
                     <div id="weekly-projects-donut"></div>
                 </div>
             </div>
+        </div>
+
+        <div style="display: none" id="noActivityContainer">
+            No activity registered this week!
         </div>
     </div>
 </div>

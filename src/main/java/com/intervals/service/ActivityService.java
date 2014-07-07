@@ -2,6 +2,7 @@ package com.intervals.service;
 
 import com.intervals.model.Activity;
 import com.intervals.model.Employee;
+import com.intervals.model.Project;
 import com.intervals.model.WeeklySheet;
 
 import java.util.List;
@@ -25,4 +26,5 @@ public interface ActivityService {
 
     List<Activity> findAllByWeekly(Long weeklyId);
 
+    List<Activity> findAllByProject(Project p);
 }

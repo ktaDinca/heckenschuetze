@@ -1,6 +1,7 @@
 package com.intervals.service.impl;
 
 import com.intervals.dao.ProjectDao;
+import com.intervals.model.Department;
 import com.intervals.model.Project;
 import com.intervals.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,13 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void remove(Long projectId) {
         projectDao.remove(projectId);
+    }
+
+    @Override
+    public List<Project> findByDepartment(Department department) {
+        if (department == null) {
+            return null;
+        }
+        return projectDao.findProjectsForDepartment(department);
     }
 }

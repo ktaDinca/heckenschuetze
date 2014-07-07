@@ -124,6 +124,7 @@
     <orderEntry type="library" name="Maven: org.bouncycastle:bcmail-jdk14:1.38" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk14:1.38" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bctsp-jdk14:1.38" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.poi:poi:3.10-FINAL" level="project" />
   </component>
 </module>
 

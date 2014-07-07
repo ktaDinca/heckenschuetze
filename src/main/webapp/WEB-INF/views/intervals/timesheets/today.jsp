@@ -12,14 +12,6 @@
 
 <script>
 
-    //6 levels of brightness from 0 to 5, 0 being the darkest
-    function getRandColor(brightness){
-        var rgb = [Math.random() * 256, Math.random() * 256, Math.random() * 256];
-        var mix = [brightness*51, brightness*51, brightness*51];
-        var mixedrgb = [Math.floor((rgb[0] + mix[0]) / 2.0), Math.floor((rgb[1] + mix[1]) / 2.0), Math.floor((rgb[2] + mix[2]) / 2.0)];
-        return "rgb(" + mixedrgb.join(",") + ")";
-    }
-
     function generateRandomColor() {
         var colors = [];
         colors.push("rgb(26, 188, 156)");
@@ -203,9 +195,6 @@
 
 
     function removeActivityHandler(id) {
-
-        console.log("remove - activity");
-
         if (id == null || id == 'undefined' || id.length < 1) {
             alert("ID'ul este null");
             return false;
@@ -228,7 +217,7 @@
 
 </script>
 
-<h1>How are you Today?</h1>
+<h1 id="pageHeader">How are you Today?</h1>
 
 <div id="calendar"></div>
 

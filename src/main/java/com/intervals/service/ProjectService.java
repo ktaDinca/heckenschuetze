@@ -1,5 +1,6 @@
 package com.intervals.service;
 
+import com.intervals.model.Department;
 import com.intervals.model.Project;
 
 import java.util.List;
@@ -18,4 +19,5 @@ public interface ProjectService {
 
     void remove(Long projectId);
 
+    List<Project> findByDepartment(Department department);
 }

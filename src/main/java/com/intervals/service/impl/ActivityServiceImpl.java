@@ -3,6 +3,7 @@ package com.intervals.service.impl;
 import com.intervals.dao.ActivityDao;
 import com.intervals.model.Activity;
 import com.intervals.model.Employee;
+import com.intervals.model.Project;
 import com.intervals.model.WeeklySheet;
 import com.intervals.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,13 @@ public class ActivityServiceImpl implements ActivityService {
             return null;
         }
         return activityDao.findAllByWeeklyId(weeklyId);
+    }
+
+    @Override
+    public List<Activity> findAllByProject(Project p) {
+        if (p == null) {
+            return null;
+        }
+        return activityDao.findActivitiesByProject(p);
     }
 }

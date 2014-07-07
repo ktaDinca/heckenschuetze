@@ -3,6 +3,9 @@
     overflow-y: hidden;
 }
 
+body {
+    height: 667px;
+}
 #wrapper {
     padding-left: 230px;
     transition: all 0.4s ease 0s;

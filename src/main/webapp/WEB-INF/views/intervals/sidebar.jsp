@@ -10,7 +10,14 @@
     <div class="row" id="imageRow">
         <div class="col-sm-12">
             <img id=profile-img" class="profile_img"
-                 src="<spring:url value="/resources/images/photo-cd.png" />" >
+            <c:choose>
+            <c:when test="${loggedInUser.lastname eq 'Dinca'}">
+                 src="<spring:url value="/resources/images/photo-cd.png" />">
+            </c:when>
+            <c:otherwise>
+                src="<spring:url value="/resources/images/photo-face.png"/>" >
+            </c:otherwise>
+            </c:choose>
         </div>
     </div>
 
@@ -22,11 +29,11 @@
 </div>
 
 <ul>
-    <li class="top-bordered">
-        <a href="<spring:url value="/intervals/today" />">today's</a>
+    <li class="top-bordered item-active">
+        <a href="<spring:url value="/intervals/today"/>" >today's</a>
     </li>
     <c:if test="${loggedInUser.job eq 'ADMIN'}">
-        <li class="top-bordered item-active">
+        <li class="top-bordered">
             <a href="<spring:url value="/intervals/admin/panel" />">Admin Panel</a>
         </li>
     </c:if>

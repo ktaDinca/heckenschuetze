@@ -9,6 +9,11 @@
     margin-left: 0.1em;
 }
 
+#datepickeContainer {
+    width: 25%;
+    margin: 40px auto 15px auto;
+}
+
 #weekly-status .alert-dismissable p {
     text-align: center;
 }

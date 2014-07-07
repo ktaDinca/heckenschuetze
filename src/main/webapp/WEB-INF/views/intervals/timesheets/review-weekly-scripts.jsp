@@ -2,7 +2,9 @@
 
 <script>
     $(document).ready(function() {
-        checkNotificationsEveryXseconds(30);
+        checkNotifications();
+//        checkNotificationsEveryXseconds(10);
+        loadDataForTotalWorkPerProjectDonut();
     });
 
     function checkNotificationsEveryXseconds(seconds) {
@@ -17,15 +19,18 @@
             type: "post",
             url: "<spring:url value="/intervals/notifications/check" />",
             success: function(data) {
+                console.log(data);
                 if (data.message == 'success') {
                     $('#notificationsPanel .badge').text(data.notifications.length);
+
                     var panelList = $('#notificationsPanel .list-group');
                     panelList.empty();
+
                     for (var i = 0; i < data.notifications.length; i ++) {
                         var notif = '<a href="#" id="notif_' + data.notifications[i].id + '" class="list-group-item">' +
                                 data.notifications[i].sheet.owner.firstname + ' ' +
                                 data.notifications[i].sheet.owner.lastname +
-                                '<span class="pull-right text-muted small"><em>' + data.notifications[i].issue_time + '</em>' +
+                                '<span class="pull-right text-muted small">' + data.notifications[i].issue_time + '' +
                                 '</a>';
                         var approve = '<button type="button" id="approve_' + data.notifications[i].sheet.id + '" class="btn btn-success">' +
                                 '<span class="glyphicon glyphicon-ok"></span> Approve' + '</button>';
@@ -91,12 +96,13 @@
 
     function populateCalendar(notification) {
         return function() {
-            var reviewCalendar = $('#review-calendar');
 
-            // if the calendar has already been rendered, exit
-            if (reviewCalendar.children().length > 0) {
-                return;
-            }
+            console.log("notificarea primita");
+            console.log(notification);
+
+            var reviewCalendar = $('#review-calendar');
+            console.log(reviewCalendar);
+            reviewCalendar.empty();
 
             reviewCalendar.fullCalendar({
                 theme: true,
@@ -138,4 +144,63 @@
             reviewCalendar.fullCalendar('gotoDate', new Date(notification.sheet.startingDay));
         }
     }
+
+    function loadDataForTotalWorkPerProjectDonut() {
+        $.ajax({
+            method: "GET",
+            url : "<spring:url value="/intervals/charts/general/project-hours-donut" />",
+            success: function(data) {
+                console.log(data);
+
+                var donutData = [];
+                $.each(data.generalWorkPerProject, function(key, value) {
+                    donutData.push({
+                        label: key,
+                        value: value
+                    });
+                });
+                if (donutData.length > 0) {
+                    drawDonut('all-project-work-donut', donutData);
+                }
+                else {
+                    alert("Nothing to be shown");
+                }
+
+            }
+        });
+    }
+
+    function drawDonut(elementId, content) {
+        $('#' + elementId).empty();
+        Morris.Donut({
+            element: elementId,
+            data: content,
+            resize: true
+        });
+    }
+
+    function exportGeneralHoursAsXLS() {
+        $.ajax({
+            method: "GET",
+            url : "<spring:url value="/intervals/charts/general/export/xls/work-department" />",
+            success : function(data) {
+                $('#generatedFilePath').prop('href', "/diplomarbeit/intervals/reports/xls/" + data.filepath);
+                console.log(data.filepath);
+                $('#exportSuccessfulModal').modal('show');
+            }
+        });
+    }
+
+    function exportGeneralHoursAsPDF() {
+        $.ajax({
+            method: "GET",
+            url : "<spring:url value="/intervals/charts/general/export/pdf/work-department" />",
+            success : function(data) {
+                $('#generatedFilePath').prop('href', "/diplomarbeit/intervals/reports/pdf/" + data.filepath);
+                console.log(data.filepath);
+                $('#exportSuccessfulModal').modal('show');
+            }
+        });
+    }
+
 </script>

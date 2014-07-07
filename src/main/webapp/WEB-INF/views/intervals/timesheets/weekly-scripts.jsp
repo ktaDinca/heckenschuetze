@@ -24,17 +24,23 @@
                 start: start
             },
             success: function(data) {
+                console.log(data);
                 if(data.message == 'success') {
-                    console.log(data);
-
                     var donutData = [];
-                    $.each( data.projectHours, function(key, value) {
+                    $.each(data.projectHours, function(key, value) {
                         donutData.push({
                             label: key,
                             value: value
                         });
                     });
+                    console.log("it's ok, going to paint the line chart!");
+                    $('#noActivityContainer').hide();
+                    $('#workingHoursContainer').show();
                     drawDonut('weekly-projects-donut', donutData);
+                }
+                else {
+                    $('#workingHoursContainer').hide();
+                    $('#noActivityContainer').show();
                 }
             }
         });
@@ -64,18 +70,21 @@
                         });
                     });
 
-                    if (lineData.length > 2) {
-                        console.log("lineData:");
-                        console.log(lineData);
+//                    if (lineData.length > 2) {
+                        console.log("it's ok, going to paint the line chart!");
+                        $('#arrivalChartContainer').show();
                         drawWorkingHoursLine('weekly-working-hours-line', lineData);
-                    }
-
+//                    }
+                }
+                else {
+                    $('#arrivalChartContainer').hide();
                 }
             }
         });
     }
 
     function drawDonut(elementId, content) {
+        $('#' + elementId).empty();
         Morris.Donut({
             element: elementId,
             data: content,
@@ -84,8 +93,9 @@
     }
 
     function drawWorkingHoursLine(elementId, content) {
-        console.log("morris!");
+        console.log("LINE CONTENT!");
         console.log(content);
+        $('#' + elementId).empty();
         Morris.Line({
             element: elementId,
             data: content,
@@ -107,35 +117,43 @@
                 start: start
             },
             success: function(data) {
-                if (data.message == 'success' && data.weekly != null) {
-                    console.log("weekly!");
-                    console.log(data);
-                    if (data.weekly.status == 'OK') {
-                        console.log('OK');
-                        hideAnyAlertBesidesClass('.alert-success');
-                    }
-                    else if (data.weekly.status == 'SUBMITTED_PENDING') {
-                        console.log('SUBMITTED');
-                        hideAnyAlertBesidesClass('.alert-warning');
-                    }
-                    else if (data.weekly.status == 'REJECTED') {
-                        console.log('REJECTED');
-                        hideAnyAlertBesidesClass('.alert-danger');
-                        $('#weekly-status #submitThisTimesheet').click(function() {
-                            submitThisTimesheetHandler(start);
-                        });
-                        $('#weekly-status #submitThisTimesheet').show();
-                    }
-                    else if (data.weekly.status == 'OPEN') {
-                        console.log('OPEN');
-                        hideAnyAlertBesidesClass('.alert-info');
-                        $('#weekly-status #submitThisTimesheet').click(function() {
-                            submitThisTimesheetHandler(start);
-                        });
-                        $('#weekly-status #submitThisTimesheet').show();
+                console.log("weekly!");
+                console.log(data);
+                if (data.message == 'success') {
+                    if (data.weekly != null) {
+                        $('#submitWeeklyContainer').show();
+                        if (data.weekly.status == 'OK') {
+                            console.log('OK');
+                            hideAnyAlertBesidesClass('.alert-success');
+                        }
+                        else if (data.weekly.status == 'SUBMITTED_PENDING') {
+                            console.log('SUBMITTED');
+                            hideAnyAlertBesidesClass('.alert-warning');
+                        }
+                        else if (data.weekly.status == 'REJECTED') {
+                            console.log('REJECTED');
+                            hideAnyAlertBesidesClass('.alert-danger');
+                            $('#weekly-status #submitThisTimesheet').click(function () {
+                                submitThisTimesheetHandler(start);
+                            });
+                            $('#weekly-status #submitThisTimesheet').show();
+                        }
+                        else if (data.weekly.status == 'OPEN') {
+                            console.log('OPEN');
+                            hideAnyAlertBesidesClass('.alert-info');
+                            $('#weekly-status #submitThisTimesheet').click(function () {
+                                submitThisTimesheetHandler(start);
+                            });
+                            $('#weekly-status #submitThisTimesheet').show();
+                        }
+                    } else {
+                        console.log("weekly null!");
+                        $('#submitWeeklyContainer').hide();
+                        hideAllAlerts();
                     }
                 }
                 if (data.message == 'failed') {
+                    console.log("weekly failed");
                     hideAllAlerts();
                 }
             }
@@ -166,7 +184,6 @@
 
         checkTimesheet(new Date().getTime());
 
-        // datepicker shit.. ignore :)
         $('.date-picker').each(function () {
 
             var $datepicker = $(this),
@@ -204,6 +221,7 @@
                 }
                 console.log('s-a dat click pe undeva. 2');
             });
+
 
             $datepicker.on('click', '[data-toggle="datepicker"]', function(event) {
                 event.preventDefault();

@@ -3,3 +3,11 @@
     margin: 0 auto;
     font-size: 16px;
 }
+
+#generalHoursPerProjectDonutContainer {
+    margin-top: 30px;
+ }
+
+.pageHeader {
+    text-align: center;
+}

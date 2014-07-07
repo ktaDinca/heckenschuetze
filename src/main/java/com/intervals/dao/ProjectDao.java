@@ -46,7 +46,7 @@ public class ProjectDao extends BaseDao {
 
 	public List<Project> findProjectsForDepartment(Department department) {
 		Query q = entityManager.createQuery(
-				"Select p from Project p where p.department.id = :id")
+				"Select p from Project p where p.department.id = :id order by p.name")
 				.setParameter("id", department.getId());
 		List<Project> results = (List<Project>) q.getResultList();
 		return results;
